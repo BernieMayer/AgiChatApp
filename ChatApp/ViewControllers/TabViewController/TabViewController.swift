@@ -281,8 +281,11 @@ class TabViewController: BaseViewController, UIScrollViewDelegate,UITableViewDel
     //MARK:-
     func createMenuWithButtonTitles(arrBtn : NSArray)
     {
+        //similar to navigationColor but less blue to add a gradient
+        let menuViewColor = UIColor(customColor: 26, green: 207, blue: 252, alpha: 1.0);
+        
         let menuview = UIView(frame:  CGRectMake(0, 64, MAIN_WIDTH, menuViewHeight))
-        menuview.backgroundColor = ColorCode(143, green: 68, blue: 173, alpha: 1)
+        menuview.backgroundColor = menuViewColor
         self.view.addSubview(menuview)
         indicatorView = UIView(frame: CGRectMake(0, menuview.frame.size.height - 2, MAIN_WIDTH / CGFloat(arrBtn.count), 2))
         indicatorView.backgroundColor = UIColor.whiteColor()

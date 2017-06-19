@@ -38,7 +38,7 @@ class BaseViewController: UIViewController
     let IMAGE_HEIGHT = UIScreen.mainScreen().bounds.height/100*45
     var  appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
     
-    var navigationColor:UIColor = UIColor(customColor: 143, green: 68, blue: 173, alpha: 1.0);
+    var navigationColor:UIColor = UIColor(customColor: 29, green: 103, blue: 241, alpha: 1.0);
     
     
     

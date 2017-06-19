@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell3" id="KGk-i7-Jjw" customClass="TableViewCell3" customModule="ChatApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfV-6a-ZZd">
+                        <rect key="frame" x="103" y="9" width="63" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="26" id="18V-i9-B85"/>
+                            <constraint firstAttribute="width" constant="63" id="Pbw-yh-K3S"/>
+                        </constraints>
+                        <state key="normal" image="radio_selected"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Female" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEF-f8-MRi">
+                        <rect key="frame" x="211" y="11" width="56" height="23"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Gender   :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isH-Qk-NuI">
+                        <rect key="frame" x="10" y="10" width="75" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="75" id="7vJ-KX-yQD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gv-Gy-TQa">
+                        <rect key="frame" x="186" y="10" width="81" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="81" id="2Zt-tC-MMd"/>
+                            <constraint firstAttribute="height" constant="26" id="Ahx-BU-eN3"/>
+                        </constraints>
+                        <state key="normal" image="radio_unselected"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Male" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ogg-cP-que">
+                        <rect key="frame" x="129" y="10" width="37" height="23"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="EEF-f8-MRi" secondAttribute="bottom" constant="11" id="385-Bc-CPz"/>
+                    <constraint firstItem="EEF-f8-MRi" firstAttribute="leading" secondItem="1gv-Gy-TQa" secondAttribute="trailing" constant="-56" id="3bP-OI-6bf"/>
+                    <constraint firstItem="Ogg-cP-que" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="KKk-4n-JSt"/>
+                    <constraint firstItem="1gv-Gy-TQa" firstAttribute="leading" secondItem="Ogg-cP-que" secondAttribute="trailing" constant="20" id="LkJ-i4-OJ9"/>
+                    <constraint firstAttribute="bottom" secondItem="Ogg-cP-que" secondAttribute="bottom" constant="12" id="MnM-sc-soE"/>
+                    <constraint firstItem="EEF-f8-MRi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="Tmg-8A-gvO"/>
+                    <constraint firstAttribute="bottom" secondItem="1gv-Gy-TQa" secondAttribute="bottom" constant="7" id="ayV-mq-Q0f"/>
+                    <constraint firstItem="1gv-Gy-TQa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="bD4-99-kZ6"/>
+                    <constraint firstAttribute="bottom" secondItem="tfV-6a-ZZd" secondAttribute="bottom" constant="8" id="cjr-xM-KYY"/>
+                    <constraint firstItem="tfV-6a-ZZd" firstAttribute="leading" secondItem="isH-Qk-NuI" secondAttribute="trailing" constant="18" id="k5A-eA-ZiR"/>
+                    <constraint firstItem="isH-Qk-NuI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="nus-yJ-6cG"/>
+                    <constraint firstItem="Ogg-cP-que" firstAttribute="leading" secondItem="tfV-6a-ZZd" secondAttribute="trailing" constant="-37" id="oTm-VM-Ui2"/>
+                    <constraint firstItem="isH-Qk-NuI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ou8-KC-GyD"/>
+                    <constraint firstItem="1gv-Gy-TQa" firstAttribute="leading" secondItem="Ogg-cP-que" secondAttribute="trailing" constant="20" id="qLB-8L-H61"/>
+                    <constraint firstAttribute="bottom" secondItem="isH-Qk-NuI" secondAttribute="bottom" constant="12" id="uWz-Sx-iZK"/>
+                    <constraint firstItem="tfV-6a-ZZd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="xA8-Qy-D2W"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="radioFemale" destination="1gv-Gy-TQa" id="mo0-7T-ofn"/>
+                <outlet property="radioMale" destination="tfV-6a-ZZd" id="Ucf-hu-NIi"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="radio_selected" width="21" height="21"/>
+        <image name="radio_unselected" width="21" height="21"/>
+    </resources>
+</document>

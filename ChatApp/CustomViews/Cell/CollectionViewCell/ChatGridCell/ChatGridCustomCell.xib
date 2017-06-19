@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ChatGridCustomCell" customModule="ChatApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="140"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="140"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dzx-Vw-QZL">
+                        <rect key="frame" x="20" y="20" width="60" height="60"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="CMM-8Y-qjr"/>
+                            <constraint firstAttribute="width" constant="60" id="SXq-iG-wWf"/>
+                        </constraints>
+                    </imageView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yhm-Fm-NR3">
+                        <rect key="frame" x="54" y="19" width="29" height="25"/>
+                        <color key="backgroundColor" red="0.4823529412" green="0.16862745100000001" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Wdp-92-5sX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anis   Mansuri" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENi-il-W3p">
+                        <rect key="frame" x="0.0" y="87" width="100" height="41"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="41" id="l8I-kx-wBY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3H-wP-pos">
+                        <rect key="frame" x="14" y="92" width="9" height="9"/>
+                        <color key="backgroundColor" red="0.44600534079999998" green="0.87450980389999999" blue="0.39577089100000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="9" id="ffg-q9-Yel"/>
+                            <constraint firstAttribute="width" constant="9" id="iUw-wt-xR5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="Dzx-Vw-QZL" firstAttribute="top" secondItem="yhm-Fm-NR3" secondAttribute="bottom" constant="-24" id="0bQ-R8-bRo"/>
+                <constraint firstItem="ENi-il-W3p" firstAttribute="top" secondItem="q3H-wP-pos" secondAttribute="bottom" constant="-14" id="47F-gw-Nfz"/>
+                <constraint firstItem="Dzx-Vw-QZL" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="OJe-xs-WWh"/>
+                <constraint firstItem="ENi-il-W3p" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="QLC-hZ-Nzu"/>
+                <constraint firstItem="yhm-Fm-NR3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="54" id="QeX-xa-Jba"/>
+                <constraint firstAttribute="trailing" secondItem="yhm-Fm-NR3" secondAttribute="trailing" constant="17" id="SaI-YA-jgb"/>
+                <constraint firstItem="ENi-il-W3p" firstAttribute="top" secondItem="Dzx-Vw-QZL" secondAttribute="bottom" constant="7" id="TFR-SB-TvS"/>
+                <constraint firstAttribute="bottom" secondItem="ENi-il-W3p" secondAttribute="bottom" constant="12" id="YBW-ll-OGl"/>
+                <constraint firstItem="Dzx-Vw-QZL" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="Zxx-u6-8Ge"/>
+                <constraint firstItem="ENi-il-W3p" firstAttribute="leading" secondItem="q3H-wP-pos" secondAttribute="trailing" constant="-23" id="ibM-7B-Xo2"/>
+                <constraint firstAttribute="trailing" secondItem="ENi-il-W3p" secondAttribute="trailing" id="stK-6i-Vyj"/>
+                <constraint firstAttribute="trailing" secondItem="Dzx-Vw-QZL" secondAttribute="trailing" constant="20" id="zWq-RB-6Pa"/>
+            </constraints>
+            <size key="customSize" width="100" height="140"/>
+            <connections>
+                <outlet property="imgViewProfile" destination="Dzx-Vw-QZL" id="zBh-xe-cR0"/>
+                <outlet property="lblMsgCount" destination="yhm-Fm-NR3" id="JJ3-oX-fmA"/>
+                <outlet property="lblOnlineStatus" destination="q3H-wP-pos" id="DCI-mn-Ydp"/>
+                <outlet property="lblUserName" destination="ENi-il-W3p" id="f91-ci-1w5"/>
+            </connections>
+            <point key="canvasLocation" x="170" y="103"/>
+        </collectionViewCell>
+    </objects>
+</document>

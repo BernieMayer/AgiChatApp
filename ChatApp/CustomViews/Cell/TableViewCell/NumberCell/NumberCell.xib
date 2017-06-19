@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="numberCell" rowHeight="75" id="KGk-i7-Jjw" customClass="NumberCell" customModule="ChatApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="moS-LT-byQ">
+                        <rect key="frame" x="7" y="7" width="306" height="60"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="88O-A7-tz8">
+                        <rect key="frame" x="202" y="0.0" width="53" height="74"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="ulD-aU-Rdq"/>
+                            <constraint firstAttribute="height" constant="74" id="yZl-Bb-NWt"/>
+                        </constraints>
+                        <state key="normal" image="number"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qqs-rY-xGV">
+                        <rect key="frame" x="267" y="0.0" width="53" height="74"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="0t6-fM-HIx"/>
+                            <constraint firstAttribute="height" constant="74" id="6XK-pA-9z9"/>
+                        </constraints>
+                        <state key="normal" image="chats_calls"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9574850843" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="AiW-nf-daA">
+                        <rect key="frame" x="23" y="0.0" width="169" height="74"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JIQ-QG-WBw">
+                        <rect key="frame" x="260" y="21" width="1" height="33"/>
+                        <color key="backgroundColor" red="0.88235294117647056" green="0.88235294117647056" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="P49-gD-3TV"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="moS-LT-byQ" secondAttribute="trailing" constant="7" id="7qt-6Q-Fex"/>
+                    <constraint firstItem="Qqs-rY-xGV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="AKJ-Lj-32w"/>
+                    <constraint firstAttribute="trailing" secondItem="Qqs-rY-xGV" secondAttribute="trailing" id="BlA-p4-MC2"/>
+                    <constraint firstAttribute="bottom" secondItem="moS-LT-byQ" secondAttribute="bottom" constant="7" id="C9r-SC-keH"/>
+                    <constraint firstItem="JIQ-QG-WBw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="DZI-yQ-cYa"/>
+                    <constraint firstAttribute="bottom" secondItem="Qqs-rY-xGV" secondAttribute="bottom" id="FPW-8P-uKg"/>
+                    <constraint firstItem="AiW-nf-daA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="23" id="O4X-wn-TwY"/>
+                    <constraint firstItem="88O-A7-tz8" firstAttribute="leading" secondItem="AiW-nf-daA" secondAttribute="trailing" constant="10" id="Wsc-Sj-TuR"/>
+                    <constraint firstAttribute="bottom" secondItem="JIQ-QG-WBw" secondAttribute="bottom" constant="20" id="Zli-hd-JT9"/>
+                    <constraint firstItem="moS-LT-byQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7" id="b56-ha-9ff"/>
+                    <constraint firstAttribute="bottom" secondItem="88O-A7-tz8" secondAttribute="bottom" id="cTe-Rt-bi0"/>
+                    <constraint firstItem="88O-A7-tz8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hJ4-GH-unF"/>
+                    <constraint firstItem="Qqs-rY-xGV" firstAttribute="leading" secondItem="JIQ-QG-WBw" secondAttribute="trailing" constant="6" id="ioX-J3-ytk"/>
+                    <constraint firstAttribute="bottom" secondItem="AiW-nf-daA" secondAttribute="bottom" id="jwz-3U-7Wm"/>
+                    <constraint firstItem="moS-LT-byQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="th7-7g-5ah"/>
+                    <constraint firstItem="JIQ-QG-WBw" firstAttribute="leading" secondItem="88O-A7-tz8" secondAttribute="trailing" constant="5" id="xfE-fa-jBM"/>
+                    <constraint firstItem="AiW-nf-daA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="yjN-zY-noy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="btnCall" destination="88O-A7-tz8" id="BzJ-bF-6ew"/>
+                <outlet property="btnMsg" destination="Qqs-rY-xGV" id="ezi-UP-hMN"/>
+                <outlet property="lblPhoneNumber" destination="AiW-nf-daA" id="jYr-yE-75M"/>
+                <outlet property="shadowView" destination="moS-LT-byQ" id="VgS-62-TdZ"/>
+            </connections>
+            <point key="canvasLocation" x="266" y="229.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="chats_calls" width="21" height="21"/>
+        <image name="number" width="21" height="21"/>
+    </resources>
+</document>

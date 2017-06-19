@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "81286609-2b0d-3444-b092-71ac1ebf2b70",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "81286609-2b0d-3444-b092-71ac1ebf2b70" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "81286609-2b0d-3444-b092-71ac1ebf2b70" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2D8806DD-A4FA-4EFC-84E4-D00C01D27BC6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "81286609-2b0d-3444-b092-71ac1ebf2b70" : "ios_chat-app\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ChatApp",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "trunk\/ChatApp\/ChatApp.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.2.202:9880\/ios_chat-app",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "81286609-2b0d-3444-b092-71ac1ebf2b70"
+    }
+  ]
+}

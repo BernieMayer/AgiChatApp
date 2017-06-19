@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="notificationCell" rowHeight="71" id="KGk-i7-Jjw" customClass="NotificationCell" customModule="ChatApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4J-Y8-37D">
+                        <rect key="frame" x="8" y="8" width="304" height="54"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom Notification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Be-RR-w7M">
+                        <rect key="frame" x="23" y="0.0" width="152" height="70"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Thz-UV-Atd">
+                        <rect key="frame" x="240" y="0.0" width="62" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="XvR-PI-2MU"/>
+                            <constraint firstAttribute="width" constant="62" id="oVg-Av-qBk"/>
+                        </constraints>
+                        <state key="normal" image="switch_off"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="Thz-UV-Atd" secondAttribute="trailing" constant="10" id="4yh-Wl-qMh"/>
+                    <constraint firstItem="Thz-UV-Atd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8G7-mc-w38"/>
+                    <constraint firstAttribute="trailing" secondItem="F4J-Y8-37D" secondAttribute="trailing" constant="8" id="Jm2-r5-r9p"/>
+                    <constraint firstItem="5Be-RR-w7M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LcT-86-gRa"/>
+                    <constraint firstAttribute="bottom" secondItem="5Be-RR-w7M" secondAttribute="bottom" id="V0O-Cl-MuQ"/>
+                    <constraint firstAttribute="bottom" secondItem="F4J-Y8-37D" secondAttribute="bottom" constant="8" id="ciN-eh-Iwp"/>
+                    <constraint firstItem="Thz-UV-Atd" firstAttribute="leading" secondItem="5Be-RR-w7M" secondAttribute="trailing" constant="65" id="gWq-ZZ-6D1"/>
+                    <constraint firstItem="F4J-Y8-37D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="j9s-Ub-nhv"/>
+                    <constraint firstItem="5Be-RR-w7M" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="23" id="rzk-ES-PyF"/>
+                    <constraint firstItem="F4J-Y8-37D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="sVM-vM-Tru"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="btnNotificationStatus" destination="Thz-UV-Atd" id="4bs-gX-Ovz"/>
+                <outlet property="shadowView" destination="F4J-Y8-37D" id="VJE-gv-Gct"/>
+            </connections>
+            <point key="canvasLocation" x="267" y="230.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="switch_off" width="37" height="22"/>
+    </resources>
+</document>

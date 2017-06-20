@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import Contacts
 import ContactsUI
+import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
@@ -401,6 +402,44 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     
+/*
+ 
+ 
+ 
+ 
+ public static void sendNotificationToUser(String user, final String message) {
+ Firebase ref = new Firebase(FIREBASE_URL);
+ final Firebase notifications = ref.child("notificationRequests");
+ 
+ Map notification = new HashMap<>();
+ notification.put("username", user);
+ notification.put("message", message);
+ 
+ notifications.push().setValue(notification);
+ }
+ 
+ 
+ */
+    //Note: This code is based on the above snipped and has been updated for iOS
+    //since it was made for android
+    func sendNotifactionToUser(user:String, message:String)
+    {
+        
+        let ref:FIRDatabaseReference!
+        ref = FIRDatabase.database().reference()
+        
+        let notifacations = ref.child("notificationRequests")
+        
+        var notifacation = NSDictionary();
+        notifacation.setValue(user, forKey: "username")
+        notifacation.setValue(message, forKey: "message")
+        
+        notifacations.childByAutoId().setValue(notifacation)
+        //notifacations.setValue(notifacation) //might need to be changed
+        
+    }
+ 
+ 
     //MARK:- On Attachment button Click
     //MARK:-
     override func onAttachmentButtonClick() {
@@ -620,6 +659,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             dict.setObject(userName, forKey: "title")
             dict.setObject(text, forKey: "body")
             dict.setObject(deviceToken, forKey: "device_key")
+            
+            
+            //Let the user know they have a new message
+            sendNotifactionToUser(userId, message: "New Message!!")
             
             HttpManager.sharedInstance.postResponse("", loaderShow: false, dict: dict, SuccessCompletion: { (result) in
                 NSLog("true")

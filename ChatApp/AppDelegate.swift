@@ -32,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GADMobileAds.configureWithApplicationID(appIdforAd)
         FIRDatabase.database().persistenceEnabled = true
         ref.keepSynced(true)
+        
+        //TODO add support for iOS 10 here
              
         //Register for remote notification
         let settings: UIUserNotificationSettings =

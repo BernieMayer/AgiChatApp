@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C291CA81EF9C5210049CE21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C291CA71EF9C5210049CE21 /* GoogleService-Info.plist */; };
 		7C714E771EF84B1A0023499B /* GoogleMobileAds.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C714E761EF84B1A0023499B /* GoogleMobileAds.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7C714E7D1EF859D20023499B /* ChatApp-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = F2E35F971D1C016A005A5041 /* ChatApp-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7C714E7E1EF85B500023499B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C714E691EF84A7B0023499B /* GoogleMobileAds.framework */; };
 		7C714E801EF85B9F0023499B /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C714E7F1EF85B9F0023499B /* SDWebImage.framework */; };
 		7C714E831EF85BF80023499B /* UIImageView+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C714E811EF85BD50023499B /* UIImageView+WebCache.h */; };
-		7C714E851EF85DA30023499B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C714E841EF85DA30023499B /* GoogleService-Info.plist */; };
 		7CCA84CE1EF86552004E52C4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C456D31DAE036400C09156 /* TabViewController.swift */; };
 		84018E3D1DB1F18000FEC6B2 /* SwiftLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84018E3C1DB1F18000FEC6B2 /* SwiftLoader.swift */; };
 		840A278C1D9BC8D20049E75D /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A278B1D9BC8D20049E75D /* StatusViewController.swift */; };
@@ -161,11 +161,11 @@
 /* Begin PBXFileReference section */
 		0E90D570C9BA3B238032E4C1 /* Pods-ChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.release.xcconfig"; sourceTree = "<group>"; };
 		321A2E0B80BEA268CFF7EDDD /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
+		7C291CA71EF9C5210049CE21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C714E691EF84A7B0023499B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks/GoogleMobileAds.framework"; sourceTree = "<group>"; };
 		7C714E761EF84B1A0023499B /* GoogleMobileAds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GoogleMobileAds.h; path = "../Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks/GoogleMobileAds.framework/Versions/A/Headers/GoogleMobileAds.h"; sourceTree = "<group>"; };
 		7C714E7F1EF85B9F0023499B /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/ChatApp-bwyqrdccsgpqgcgcahdqndrutsls/Build/Products/Debug-iphonesimulator/SDWebImage/SDWebImage.framework"; sourceTree = "<group>"; };
 		7C714E811EF85BD50023499B /* UIImageView+WebCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImageView+WebCache.h"; path = "Pods/SDWebImage/SDWebImage/UIImageView+WebCache.h"; sourceTree = "<group>"; };
-		7C714E841EF85DA30023499B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84018E3C1DB1F18000FEC6B2 /* SwiftLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLoader.swift; sourceTree = "<group>"; };
 		840A278B1D9BC8D20049E75D /* StatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		841CBB221DC30F8C0008C328 /* JSQSystemSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQSystemSoundPlayer.h; sourceTree = "<group>"; };
@@ -1108,11 +1108,11 @@
 				84CEF5671D9138D400C88B55 /* ViewControllers */,
 				84CEF53F1D9138CA00C88B55 /* Utility */,
 				F2E35F701D1BDC6F005A5041 /* Assets.xcassets */,
+				7C291CA71EF9C5210049CE21 /* GoogleService-Info.plist */,
 				F2486BCF1D20FB6E0038F5D0 /* img.jpg */,
 				F2E35F691D1BDC6E005A5041 /* AppDelegate.swift */,
 				F2E35F6D1D1BDC6F005A5041 /* Main.storyboard */,
 				F2E35F971D1C016A005A5041 /* ChatApp-Bridging-Header.h */,
-				7C714E841EF85DA30023499B /* GoogleService-Info.plist */,
 				F2E35F751D1BDC6F005A5041 /* Info.plist */,
 				F2E35F721D1BDC6F005A5041 /* LaunchScreen.storyboard */,
 				F2486BE91D2143660038F5D0 /* Frameworks */,
@@ -1220,6 +1220,7 @@
 				84D03A4E1D93F01D00BA5848 /* ChatGridCustomCell.xib in Resources */,
 				847E95941DCE041F00AE8762 /* GroupContactCell.xib in Resources */,
 				84D03A3F1D93EFBB00BA5848 /* NumberCell.xib in Resources */,
+				7C291CA81EF9C5210049CE21 /* GoogleService-Info.plist in Resources */,
 				F26FDC181DD1894800E1173A /* JSQMessagesAssets.bundle in Resources */,
 				84FE35B81DDEF1310084D33D /* GroupUsersTableViewCell.xib in Resources */,
 				84D03A3D1D93EFBB00BA5848 /* NotificationCell.xib in Resources */,
@@ -1229,7 +1230,6 @@
 				F26FDC451DD1894800E1173A /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
 				84D03A431D93EFBB00BA5848 /* StatusCell.xib in Resources */,
 				F26FDC391DD1894800E1173A /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
-				7C714E851EF85DA30023499B /* GoogleService-Info.plist in Resources */,
 				F26FDC3B1DD1894800E1173A /* JSQMessagesCollectionViewCellOutgoing.xib in Resources */,
 				F2E35F6F1D1BDC6F005A5041 /* Main.storyboard in Resources */,
 				84FADB361DDD94D900742C40 /* LocationCell.xib in Resources */,
@@ -1556,7 +1556,7 @@
 				INFOPLIST_FILE = ChatApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.agile.chatapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agi.chatapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "581c8c20-b07f-4419-a78a-7d2f54478099";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatApp/ChatApp-Bridging-Header.h";
@@ -1584,7 +1584,7 @@
 				INFOPLIST_FILE = ChatApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.agile.chatapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.agi.chatapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "581c8c20-b07f-4419-a78a-7d2f54478099";
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatApp/ChatApp-Bridging-Header.h";

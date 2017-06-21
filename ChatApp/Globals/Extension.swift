@@ -13,7 +13,7 @@ import UIKit
 
 //MARK: - NSBundle EXTENSIONS
 //MARK: -
-extension NSBundle {
+extension Bundle {
     
     var releaseVersionNumber: String! {
         return self.infoDictionary?["CFBundleShortVersionString"] as! String
@@ -33,9 +33,18 @@ extension NSBundle {
 //MARK: -
 extension Character {
     func isEmoji() -> Bool {
-        return Character(UnicodeScalar(0x1d000)) <= self && self <= Character(UnicodeScalar(0x1f77f))
-            || Character(UnicodeScalar(0x1f900)) <= self && self <= Character(UnicodeScalar(0x1f9ff))
-            || Character(UnicodeScalar(0x2100)) <= self && self <= Character(UnicodeScalar(0x26ff))
+   
+        
+        return false //TODO Fix this
+        /*
+    
+        return Character(UnicodeScalar.init(v:0x1d000)) <= self && self <= Character(UnicodeScalar.init(v:0x1f77f))
+            || Character(UnicodeScalar.init(v:0x1f900)) <= self && self <= Character(UnicodeScalar.init(v:0x1f9ff))
+            || Character(UnicodeScalar.init(v:0x2100)) <= self && self <= Character(UnicodeScalar.init(v:0x26ff))
+ 
+        */
+        /*return 0x1d000 <=  && UnicodeScalar(self) <= 0x1f77f
+            || 0x1f900 <= UnicodeScalar(self)*/
     }
 }
 
@@ -45,7 +54,7 @@ extension Character {
 //MARK: -
 extension NSDictionary{
     
-    func object_forKeyWithValidationForClass_Int(aKey: String) -> Int {
+    func object_forKeyWithValidationForClass_Int(_ aKey: String) -> Int {
         
         // CHECK FOR EMPTY
         if(self.allKeys.count == 0) {
@@ -53,8 +62,8 @@ extension NSDictionary{
         }
         
         // CHECK IF KEY EXIST
-        if let val = self.objectForKey(aKey) {
-            if(val.isEqual(NSNull())) {
+        if let val = self.object(forKey: aKey) {
+            if((val as AnyObject).isEqual(NSNull())) {
                 return Int()
             }
         } else {
@@ -63,16 +72,16 @@ extension NSDictionary{
         }
         
         // CHECK FOR NIL VALUE
-        let aValue : AnyObject = self.objectForKey(aKey)!
+        let aValue : AnyObject = self.object(forKey: aKey)! as AnyObject
         if aValue.isEqual(NSNull()) {
             return Int()
         }
         else {
-            return self.objectForKey(aKey) as! Int
+            return self.object(forKey: aKey) as! Int
         }
     }
     
-    func object_forKeyWithValidationForClass_CGFloat(aKey: String) -> CGFloat {
+    func object_forKeyWithValidationForClass_CGFloat(_ aKey: String) -> CGFloat {
         
         // CHECK FOR EMPTY
         if(self.allKeys.count == 0) {
@@ -80,8 +89,8 @@ extension NSDictionary{
         }
         
         // CHECK IF KEY EXIST
-        if let val = self.objectForKey(aKey) {
-            if(val.isEqual(NSNull())) {
+        if let val = self.object(forKey: aKey) {
+            if((val as AnyObject).isEqual(NSNull())) {
                 return CGFloat()
             }
             else if(val as! String == "") {
@@ -93,16 +102,16 @@ extension NSDictionary{
         }
         
         // CHECK FOR NIL VALUE
-        let aValue : AnyObject = self.objectForKey(aKey)!
+        let aValue : AnyObject = self.object(forKey: aKey)! as AnyObject
         if aValue.isEqual(NSNull()) {
             return CGFloat()
         }
         else {
-            return self.objectForKey(aKey) as! CGFloat
+            return self.object(forKey: aKey) as! CGFloat
         }
     }
     
-    func object_forKeyWithValidationForClass_String(aKey: String) -> String {
+    func object_forKeyWithValidationForClass_String(_ aKey: String) -> String {
         
         
         // CHECK FOR EMPTY
@@ -111,8 +120,8 @@ extension NSDictionary{
         }
         
         // CHECK IF KEY EXIST
-        if let val = self.objectForKey(aKey) {
-            if(val.isEqual(NSNull())) {
+        if let val = self.object(forKey: aKey) {
+            if((val as AnyObject).isEqual(NSNull())) {
                 return String()
             }
         } else {
@@ -121,7 +130,7 @@ extension NSDictionary{
         }
         
         // CHECK FOR NIL VALUE
-        let aValue : AnyObject = self.objectForKey(aKey)!
+        let aValue : AnyObject = self.object(forKey: aKey)! as AnyObject
         if aValue.isEqual(NSNull()) {
         
             return String()
@@ -129,7 +138,7 @@ extension NSDictionary{
         else {
             
             if aValue is String {
-                return self.objectForKey(aKey) as! String
+                return self.object(forKey: aKey) as! String
             }
             else{
                 return String()
@@ -142,15 +151,15 @@ extension NSDictionary{
     
  
     
-    func object_forKeyWithValidationForClass_Bool(aKey: String) -> Bool {
+    func object_forKeyWithValidationForClass_Bool(_ aKey: String) -> Bool {
         // CHECK FOR EMPTY
         if(self.allKeys.count == 0) {
             return Bool()
         }
         
         // CHECK IF KEY EXIST
-        if let val = self.objectForKey(aKey) {
-            if(val.isEqual(NSNull())) {
+        if let val = self.object(forKey: aKey) {
+            if((val as AnyObject).isEqual(NSNull())) {
                 return Bool()
             }
         } else {
@@ -159,24 +168,24 @@ extension NSDictionary{
         }
         
         // CHECK FOR NIL VALUE
-        let aValue : AnyObject = self.objectForKey(aKey)!
+        let aValue : AnyObject = self.object(forKey: aKey)! as AnyObject
         if aValue.isEqual(NSNull()) {
             return Bool()
         }
         else {
-            return self.objectForKey(aKey) as! Bool
+            return self.object(forKey: aKey) as! Bool
         }
     }
     
-    func object_forKeyWithValidationForClass_NSArray(aKey: String) -> NSArray {
+    func object_forKeyWithValidationForClass_NSArray(_ aKey: String) -> NSArray {
         // CHECK FOR EMPTY
         if(self.allKeys.count == 0) {
             return NSArray()
         }
         
         // CHECK IF KEY EXIST
-        if let val = self.objectForKey(aKey) {
-            if(val.isEqual(NSNull())) {
+        if let val = self.object(forKey: aKey) {
+            if((val as AnyObject).isEqual(NSNull())) {
                 return NSArray()
             }
         } else {
@@ -185,16 +194,16 @@ extension NSDictionary{
         }
         
         // CHECK FOR NIL VALUE
-        let aValue : AnyObject = self.objectForKey(aKey)!
+        let aValue : AnyObject = self.object(forKey: aKey)! as AnyObject
         if aValue.isEqual(NSNull()) {
             return NSArray()
         }
         else {
-            return self.objectForKey(aKey) as! NSArray
+            return self.object(forKey: aKey) as! NSArray
         }
     }
     
-    func object_forKeyWithValidationForClass_NSMutableArray(aKey: String) -> NSMutableArray {
+    func object_forKeyWithValidationForClass_NSMutableArray(_ aKey: String) -> NSMutableArray {
         // CHECK FOR EMPTY
         
         if(self.allKeys.count == 0) {
@@ -202,8 +211,8 @@ extension NSDictionary{
         }
         
         // CHECK IF KEY EXIST
-        if let val = self.objectForKey(aKey) {
-            if(val.isEqual(NSNull())) {
+        if let val = self.object(forKey: aKey) {
+            if((val as AnyObject).isEqual(NSNull())) {
                 return NSMutableArray()
             }
         } else {
@@ -212,24 +221,24 @@ extension NSDictionary{
         }
         
         // CHECK FOR NIL VALUE
-        let aValue : AnyObject = self.objectForKey(aKey)!
+        let aValue : AnyObject = self.object(forKey: aKey)! as AnyObject
         if aValue.isEqual(NSNull()) {
             return NSMutableArray()
         }
         else {
-            return (self.objectForKey(aKey))?.mutableCopy() as! NSMutableArray
+            return ((self.object(forKey: aKey)) as AnyObject) as! NSMutableArray
         }
     }
     
-    func object_forKeyWithValidationForClass_NSDictionary(aKey: String) -> NSDictionary {
+    func object_forKeyWithValidationForClass_NSDictionary(_ aKey: String) -> NSDictionary {
         // CHECK FOR EMPTY
         if(self.allKeys.count == 0) {
             return NSDictionary()
         }
         
         // CHECK IF KEY EXIST
-        if let val = self.objectForKey(aKey) {
-            if(val.isEqual(NSNull())) {
+        if let val = self.object(forKey: aKey) {
+            if((val as AnyObject).isEqual(NSNull())) {
                 return NSDictionary()
             }
         } else {
@@ -238,24 +247,24 @@ extension NSDictionary{
         }
         
         // CHECK FOR NIL VALUE
-        let aValue : AnyObject = self.objectForKey(aKey)!
+        let aValue : AnyObject = self.object(forKey: aKey)! as AnyObject
         if aValue.isEqual(NSNull()) {
             return NSDictionary()
         }
         else {
-            return self.objectForKey(aKey) as! NSDictionary
+            return self.object(forKey: aKey) as! NSDictionary
         }
     }
     
-    func object_forKeyWithValidationForClass_NSMutableDictionary(aKey: String) -> NSMutableDictionary {
+    func object_forKeyWithValidationForClass_NSMutableDictionary(_ aKey: String) -> NSMutableDictionary {
         // CHECK FOR EMPTY
         if(self.allKeys.count == 0) {
             return NSMutableDictionary()
         }
         
         // CHECK IF KEY EXIST
-        if let val = self.objectForKey(aKey) {
-            if(val.isEqual(NSNull())) {
+        if let val = self.object(forKey: aKey) {
+            if((val as AnyObject).isEqual(NSNull())) {
                 return NSMutableDictionary()
             }
         } else {
@@ -264,12 +273,12 @@ extension NSDictionary{
         }
         
         // CHECK FOR NIL VALUE
-        let aValue : AnyObject = self.objectForKey(aKey)!
+        let aValue : AnyObject = self.object(forKey: aKey)! as AnyObject
         if aValue.isEqual(NSNull()) {
             return NSMutableDictionary()
         }
         else {
-            return self.objectForKey(aKey) as! NSMutableDictionary
+            return self.object(forKey: aKey) as! NSMutableDictionary
         }
     }
     
@@ -277,24 +286,24 @@ extension NSDictionary{
         let dictReplaced : NSMutableDictionary = self.mutableCopy() as! NSMutableDictionary
         let null : AnyObject = NSNull()
         let blank : NSString = ""
-        for key : AnyObject in self.allKeys {
+        for key  in self.allKeys {
             let strKey : NSString  = key as! NSString
-            let object : AnyObject = self.objectForKey(strKey)!
+            let object : AnyObject = self.object(forKey: strKey)! as AnyObject
             if object.isEqual(null) {
                 dictReplaced.setObject(blank, forKey: strKey)
                 //                dictReplaced.removeObjectForKey(strKey)
-            }else if object.isKindOfClass(NSDictionary) {
+            }else if object.isKind(of: NSDictionary.self) {
                 dictReplaced.setObject(object.dictionaryByReplacingNullsWithBlanks(), forKey: strKey)
-            }else if object.isKindOfClass(NSArray) {
+            }else if object.isKind(of: NSArray.self) {
                 dictReplaced.setObject(object.arrayByReplacingNullsWithBlanks(), forKey: strKey)
             }
         }
         return dictReplaced
     }
     
-    func dictionaryByAppendingKey(value : String) -> NSMutableDictionary {
+    func dictionaryByAppendingKey(_ value : String) -> NSMutableDictionary {
         let dictReplaced : NSMutableDictionary = self.mutableCopy() as! NSMutableDictionary
-        dictReplaced.setObject(value, forKey: "reviewType")
+        dictReplaced.setObject(value, forKey: "reviewType" as NSCopying)
         return dictReplaced
     }
     
@@ -311,27 +320,27 @@ extension NSArray{
         let blank : NSString = ""
         
         for idx in 0..<arrReplaced.count {
-            let object : AnyObject = arrReplaced.objectAtIndex(idx)
+            let object : AnyObject = arrReplaced.object(at: idx) as AnyObject
             if object.isEqual(null) {
                 arrReplaced.setValue(blank, forKey: object.key!!)
                 //                arrReplaced.removeObjectAtIndex(idx)
-            }else if object.isKindOfClass(NSDictionary) {
-                arrReplaced.replaceObjectAtIndex(idx, withObject: object.dictionaryByReplacingNullsWithBlanks())
-            }else if object.isKindOfClass(NSArray) {
-                arrReplaced.replaceObjectAtIndex(idx, withObject: object.arrayByReplacingNullsWithBlanks())
+            }else if object.isKind(of: NSDictionary.self) {
+                arrReplaced.replaceObject(at: idx, with: object.dictionaryByReplacingNullsWithBlanks())
+            }else if object.isKind(of: NSArray.self) {
+                arrReplaced.replaceObject(at: idx, with: object.arrayByReplacingNullsWithBlanks())
             }
         }
         
         return arrReplaced
     }
     
-    func arrayByAppendingKey(value : String) -> NSMutableArray {
+    func arrayByAppendingKey(_ value : String) -> NSMutableArray {
         let arrReplaced : NSMutableArray = self.mutableCopy() as! NSMutableArray
         
         for idx in 0..<arrReplaced.count {
-            let object : AnyObject = arrReplaced.objectAtIndex(idx)
-            if object.isKindOfClass(NSDictionary) {
-                arrReplaced.replaceObjectAtIndex(idx, withObject: object.dictionaryByAppendingKey(value))
+            let object : AnyObject = arrReplaced.object(at: idx) as AnyObject
+            if object.isKind(of: NSDictionary.self) {
+                arrReplaced.replaceObject(at: idx, with: object.dictionaryByAppendingKey(value))
             }
         }
         return arrReplaced

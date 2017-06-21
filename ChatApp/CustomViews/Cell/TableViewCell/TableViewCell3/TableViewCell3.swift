@@ -20,18 +20,18 @@ class TableViewCell3: UITableViewCell {
         let checkImage = UIImage(named: SELECTED) as UIImage?
         let unCheckImage = UIImage(named: UNSELECTED) as UIImage?
         
-        radioFemale.setImage(checkImage, forState: UIControlState.Selected)
-        radioMale.setImage(checkImage, forState: UIControlState.Selected)
+        radioFemale.setImage(checkImage, for: UIControlState.selected)
+        radioMale.setImage(checkImage, for: UIControlState.selected)
         
         
-        radioMale.setImage(unCheckImage, forState: UIControlState.Normal)
-        radioFemale.setImage(unCheckImage, forState: UIControlState.Normal)
+        radioMale.setImage(unCheckImage, for: UIControlState())
+        radioFemale.setImage(unCheckImage, for: UIControlState())
         
 
         
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

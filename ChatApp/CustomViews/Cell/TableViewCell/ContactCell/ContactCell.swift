@@ -29,7 +29,7 @@ class ContactCell:UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imgViewProfile.layer.masksToBounds = true
-        imgViewProfile.layer.cornerRadius = CGRectGetWidth(imgViewProfile.frame)/2.5
+        imgViewProfile.layer.cornerRadius = imgViewProfile.frame.width/2.5
     }
     
 }

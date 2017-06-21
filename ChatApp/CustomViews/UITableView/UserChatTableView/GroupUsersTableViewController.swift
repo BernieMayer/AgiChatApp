@@ -18,7 +18,7 @@ class GroupUsersTableViewController:BaseTableView, UITableViewDataSource,UITable
         
         super.awakeFromNib()
         //Register Nib
-        self.registerNib(UINib(nibName: "GroupUsersTableViewCell", bundle: nil), forCellReuseIdentifier: "groupUsersCell")
+        self.register(UINib(nibName: "GroupUsersTableViewCell", bundle: nil), forCellReuseIdentifier: "groupUsersCell")
         self.dataSource = self
         self.delegate = self
 
@@ -28,28 +28,28 @@ class GroupUsersTableViewController:BaseTableView, UITableViewDataSource,UITable
     //MARK:- TableView Delegate / DATASOURCE
     //MARK:-
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return arrGroupUser.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell : GroupUsersTableViewCell  = tableView.dequeueReusableCellWithIdentifier("groupUsersCell") as! GroupUsersTableViewCell
+        let cell : GroupUsersTableViewCell  = tableView.dequeueReusableCell(withIdentifier: "groupUsersCell") as! GroupUsersTableViewCell
         cell.updateConstraints()
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         
         let str = UserDefaults.sharedInstance.GetNSUserDefaultValue(currentUserId) //Getting current user's Id from user default
         cell.lblCellSeprator.backgroundColor = UIColor.init(red: 199.0/255.0, green: 199.0/255.0, blue: 205.0/255.0, alpha: 1)
         
         //Loading group users in table
-        if(arrGroupUser.objectAtIndex(indexPath.row).valueForKey("userId") as! String != str)
+        if((arrGroupUser.object(at: indexPath.row) as AnyObject).value(forKey: "userId") as! String != str)
         {
-            cell.lblUserName.text = arrGroupUser.objectAtIndex(indexPath.row).valueForKey("contactName") as? String
-            cell.lblUserType.textColor = UIColor.blackColor()
+            cell.lblUserName.text = (arrGroupUser.object(at: indexPath.row) as AnyObject).value(forKey: "contactName") as? String
+            cell.lblUserType.textColor = UIColor.black
             
-            if(arrGroupUser.objectAtIndex(indexPath.row).valueForKey("userType") as? String == "Admin")
+            if((arrGroupUser.object(at: indexPath.row) as AnyObject).value(forKey: "userType") as? String == "Admin")
             {
                 cell.lblUserType.text = "Admin"
             }
@@ -57,12 +57,12 @@ class GroupUsersTableViewController:BaseTableView, UITableViewDataSource,UITable
             {
                 cell.lblUserType.text = ""
             }
-            let img = self.arrGroupUser.objectAtIndex(indexPath.row).objectForKey("profilePic") as? String
+            let img = (self.arrGroupUser.object(at: indexPath.row) as AnyObject).object(forKey: "profilePic") as? String
             
             //image in string url
             if(img != "null")
             {
-                cell.imgUser.sd_setImageWithURL(NSURL(string: img! as String), placeholderImage: UIImage(named:"grp_icon"))
+                cell.imgUser.sd_setImage(with: URL(string: img! as String), placeholderImage: UIImage(named:"grp_icon"))
             }
             else
             {
@@ -73,7 +73,7 @@ class GroupUsersTableViewController:BaseTableView, UITableViewDataSource,UITable
         {
             //Current User Detail
             cell.lblUserName.text = "You"
-            if(arrGroupUser.objectAtIndex(indexPath.row).valueForKey("userType") as? String == "Admin")
+            if((arrGroupUser.object(at: indexPath.row) as AnyObject).value(forKey: "userType") as? String == "Admin")
             {
                 cell.lblUserType.text = "Admin"
             }
@@ -82,11 +82,11 @@ class GroupUsersTableViewController:BaseTableView, UITableViewDataSource,UITable
                 cell.lblUserType.text = ""
             }
             var img = NSString()
-            img = Constants.loginFields.imageUrl
+            img = Constants.loginFields.imageUrl as NSString
             //image in string url
             if(img != "null")
             {
-                cell.imgUser.sd_setImageWithURL(NSURL(string: img as String as String), placeholderImage: UIImage(named:"grp_icon"))
+                cell.imgUser.sd_setImage(with: URL(string: img as String as String), placeholderImage: UIImage(named:"grp_icon"))
             }
             else
             {
@@ -98,7 +98,7 @@ class GroupUsersTableViewController:BaseTableView, UITableViewDataSource,UITable
     
     //MARK:- height for row
     //MARK:-
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
         
     }

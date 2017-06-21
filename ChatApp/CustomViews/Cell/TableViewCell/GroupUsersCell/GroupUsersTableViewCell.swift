@@ -21,10 +21,10 @@ class GroupUsersTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         imgUser.layer.masksToBounds = true
-        imgUser.layer.cornerRadius = CGRectGetWidth(imgUser.frame)/2.3
+        imgUser.layer.cornerRadius = imgUser.frame.width/2.3
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

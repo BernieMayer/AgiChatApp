@@ -21,12 +21,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var senderImageUrl: String!
     var batchMessages = true
     //Setting bubbles color
-    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor .whiteColor())
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor(red: 205/255, green: 137/255, blue: 244/255, alpha: 1.0))
+    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.white)
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor(red: 205/255, green: 137/255, blue: 244/255, alpha: 1.0))
     var messages = [Message]()
     
     //VARIABLE FOR FIREBASE
-    private var _refHandle: FIRDatabaseHandle! //database handler
+    fileprivate var _refHandle: FIRDatabaseHandle! //database handler
     var user : FIRAuth!
     
     var userId : String = String() //Stores others user ID whom to chat with
@@ -40,7 +40,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var proPic : UIImageView = UIImageView()
     
     /*Dot Menu*/
-    var menuItems: [AnyObject] = ["View Contact", "Media", "Search","Wapllpaper","More"]
+    var menuItems: [AnyObject] = ["View Contact" as AnyObject, "Media" as AnyObject, "Search" as AnyObject,"Wapllpaper" as AnyObject,"More" as AnyObject]
     @IBOutlet var dotMenuView: UIView!
     @IBOutlet var tblDotMenu: UITableView!
     
@@ -70,7 +70,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var isGroupChat : Bool = Bool()
     
     var isExistingGroup : Bool = Bool()   // Determins group exists or not
-    var data : NSData = NSData()          // Stores image in data format
+    var data : Data = Data()          // Stores image in data format
     var isFirstTimeLoad : Bool = Bool() // Determines whether data loaded first time or not
     
     func reloadMessagesView() {
@@ -99,7 +99,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         arrFilteredContacts = NSMutableArray()
-        self.inputToolbar.contentView.textView.autocorrectionType = .No
+        self.inputToolbar.contentView.textView.autocorrectionType = .no
         self.setup()
         arrFilteredContacts = UserDefaults.sharedInstance.GetArrayFromUserDefault(allContacts)
         if(isExistingGroup == true)
@@ -120,7 +120,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK:- View will Appear
     //MARK-
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hideNavigationBar()
         collectionView.collectionViewLayout.springinessEnabled = false
@@ -136,9 +136,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 var string  = "You"
                 for i in 0..<self.arrGroupUsers.count
                 {
-                    if(self.arrGroupUsers.objectAtIndex(i).valueForKey("userId") as! String != Constants.loginFields.userId)
+                    if((self.arrGroupUsers.object(at: i) as AnyObject).value(forKey: "userId") as! String != Constants.loginFields.userId)
                     {
-                        string = string + " ,".stringByAppendingString(self.arrGroupUsers.objectAtIndex(i).valueForKey("contactName") as! String)
+                        string = string + " ," + ((self.arrGroupUsers.object(at: i) as AnyObject).value(forKey: "contactName") as! String)
                         
                         self.lblStatus.text = string //Sets Group Users
                     }
@@ -177,7 +177,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK:- View will disappear
     //MARK:-
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         
         if(isExistingGroup == true)
         {
@@ -213,8 +213,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             {
                 //when groupId is not empty will load chats if any exists
                 var previousMessageDay:Int = 0;
-                let groupChatRef = ref.child("groupChat").child(groupId).queryLimitedToLast(10)
-                _refHandle =  groupChatRef.observeEventType(.ChildAdded, withBlock:
+                let groupChatRef = ref.child("groupChat").child(groupId).queryLimited(toLast: 10)
+                _refHandle =  groupChatRef.observe(.childAdded, with:
                     { (snapshot) in
                         if(snapshot.exists())
                         {
@@ -226,9 +226,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                             for i in 0..<self.arrGroupUsers.count
                             {
                                 //if the snapshot userId is equal to userId of snapshot
-                                if(self.arrGroupUsers.objectAtIndex(i).valueForKey("userId") as! String == snapshot.value!.valueForKey("userId") as! String)
+                                if((self.arrGroupUsers.object(at: i) as AnyObject).value(forKey: "userId") as! String == (snapshot.value! as AnyObject).value(forKey: "userId") as! String)
                                 {
-                                    uName = self.arrGroupUsers.objectAtIndex(i).valueForKey("contactName") as! String
+                                    uName = (self.arrGroupUsers.object(at: i) as AnyObject).value(forKey: "contactName") as! String
                                     foundUser = true
                                     break
                                 }
@@ -238,26 +238,26 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                             if(!foundUser)
                             {
                                 self.arrFilteredContacts = UserDefaults.sharedInstance.GetArrayFromUserDefault(allContacts)
-                                let regextest:NSPredicate = NSPredicate(format: "( userId CONTAINS[C] %@ )", argumentArray: [(snapshot.value?.valueForKey("userId"))!])
+                                let regextest:NSPredicate = NSPredicate(format: "( userId CONTAINS[C] %@ )", argumentArray: [((snapshot.value as AnyObject).value(forKey: "userId"))!])
                                 let arrTemp:NSMutableArray = self.arrFilteredContacts.mutableCopy() as! NSMutableArray
-                                arrTemp.filterUsingPredicate(regextest)
+                                arrTemp.filter(using: regextest)
                                 
                                 if(arrTemp.firstObject != nil)
                                 {
-                                    uName = arrTemp.firstObject!.valueForKey("contactName") as! String
+                                    uName = (arrTemp.firstObject! as AnyObject).value(forKey: "contactName") as! String
                                 }
                                 else
                                 {
-                                    uName = snapshot.value!.valueForKey("userName")! as! String
+                                    uName = (snapshot.value! as AnyObject).value(forKey: "userName")! as! String
                                 }
                             }
                             
                             var senderName = uName //sets the sender name
                             var sender = uName
-                            let text = snapshot.value!.valueForKey("message") as! String //sets the text/messages
+                            let text = (snapshot.value! as AnyObject).value(forKey: "message") as! String //sets the text/messages
                             
                             //matches if the snapshot userId is equal to current userId
-                            if(snapshot.value?.valueForKey("userId") as! String == Constants.loginFields.userId)
+                            if((snapshot.value as AnyObject).value(forKey: "userId") as! String == Constants.loginFields.userId)
                             {
                                 //when equal to user Id sender name sets to the current username
                                 senderName = Constants.loginFields.name
@@ -270,14 +270,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                                 sender = uName
                             }
                             
-                            let strDate = snapshot.value!.valueForKey("timeStamp") as! String
+                            let strDate = (snapshot.value! as AnyObject).value(forKey: "timeStamp") as! String
                             
-                            let date:NSDate = self.getDate(fromString: strDate, withDateFormat: "MMM dd, yyyy hh:mm:ss a")
+                            let date:Date = self.getDate(fromString: strDate, withDateFormat: "MMM dd, yyyy hh:mm:ss a")
                             var textBody:String = String()
                             
-                            let dateFormat:NSDateFormatter = NSDateFormatter()
+                            let dateFormat:DateFormatter = DateFormatter()
                             dateFormat.dateFormat = "MMM dd, yyyy";
-                            let convertedSectionTitle:String = dateFormat.stringFromDate(date)
+                            let convertedSectionTitle:String = dateFormat.string(from: date)
                             
                             if(Constants.loginFields.name == senderName)
                             {
@@ -299,8 +299,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                             previousMessageDay  = currentMessageDay
                             
                             self.messages.append(message)
-                            self.finishReceivingMessageAnimated(false)
-                            self.scrollToBottomAnimated(false)
+                            self.finishReceivingMessage(animated: false)
+                            self.scrollToBottom(animated: false)
                         }
                 })
             }
@@ -317,18 +317,18 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 //when any new child is added
                 var previousMessageDay:Int = 0;
                 let refChat = ref.child("chat").child(newTopicChatID)
-                _refHandle = refChat.observeEventType(.ChildAdded, withBlock: { (snapshot) in
+                _refHandle = refChat.observe(.childAdded, with: { (snapshot) in
                     
                     if(snapshot.exists())
                     {
-                        let text = snapshot.value!.valueForKey("message") as! String
-                        let sender = snapshot.value!.valueForKey("userId") as! String
-                        let strDate = snapshot.value!.valueForKey("timeStamp") as! String
-                        let date:NSDate = self.getDate(fromString: strDate, withDateFormat: "MMM dd, yyyy hh:mm:ss a")
+                        let text = (snapshot.value! as AnyObject).value(forKey: "message") as! String
+                        let sender = (snapshot.value! as AnyObject).value(forKey: "userId") as! String
+                        let strDate = (snapshot.value! as AnyObject).value(forKey: "timeStamp") as! String
+                        let date:Date = self.getDate(fromString: strDate, withDateFormat: "MMM dd, yyyy hh:mm:ss a")
                         
-                        let dateFormat:NSDateFormatter = NSDateFormatter()
+                        let dateFormat:DateFormatter = DateFormatter()
                         dateFormat.dateFormat = "MMM dd, yyyy";
-                        let convertedSectionTitle:String = dateFormat.stringFromDate(date)
+                        let convertedSectionTitle:String = dateFormat.string(from: date)
                         
                         let message = Message(text: text, sender: sender,imageUrl: nil,withSenderDisplayName:self.senderDisplayName ,withMedia:false   ,withMessageHase:0,withDate: date)
                         let currentMessageDay:Int =
@@ -339,8 +339,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                         }
                         previousMessageDay  = currentMessageDay
                         self.messages.append(message)
-                        self.finishReceivingMessageAnimated(false)
-                        self.scrollToBottomAnimated(false)
+                        self.finishReceivingMessage(animated: false)
+                        self.scrollToBottom(animated: false)
                     }
                 })
             }
@@ -352,11 +352,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK:-
     override func onBackButtonClick(){
         
-        let tabVC : TabViewController = storyboard?.instantiateViewControllerWithIdentifier("TabViewController") as! TabViewController
+        let tabVC : TabViewController = storyboard?.instantiateViewController(withIdentifier: "TabViewController") as! TabViewController
         tabVC.btnChat = true
         tabVC.btnContact = false
-        NSUserDefaults.standardUserDefaults().setBool(false, forKey: btnGroup)
-        NSUserDefaults.standardUserDefaults().synchronize()
+        Foundation.UserDefaults.standard.set(false, forKey: btnGroup)
+        Foundation.UserDefaults.standard.synchronize()
         self.navigationController?.popToViewController(tabVC, animated: true)
     }
     
@@ -374,7 +374,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         if(isExistingGroup == true)
         {
-            let groupProfileVC : GroupProfileViewController = storyboard?.instantiateViewControllerWithIdentifier("GroupProfileViewController") as! GroupProfileViewController
+            let groupProfileVC : GroupProfileViewController = storyboard?.instantiateViewController(withIdentifier: "GroupProfileViewController") as! GroupProfileViewController
             groupProfileVC.lblGroupName.text = groupName
             groupProfileVC.groupId = groupId
             if(imgGroupIcon.image == UIImage(named: "grp_icon"))
@@ -390,7 +390,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         else
         {
-            let displayProfileVC : DisplayProfileViewController = storyboard?.instantiateViewControllerWithIdentifier("DisplayProfileViewController") as! DisplayProfileViewController
+            let displayProfileVC : DisplayProfileViewController = storyboard?.instantiateViewController(withIdentifier: "DisplayProfileViewController") as! DisplayProfileViewController
             
             displayProfileVC.userId = userId
             displayProfileVC.userName = self.userName
@@ -422,7 +422,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
  */
     //Note: This code is based on the above snipped and has been updated for iOS
     //since it was made for android
-    func sendNotifactionToUser(user:String, message:String)
+    func sendNotifactionToUser(_ user:String, message:String)
     {
         
         let ref:FIRDatabaseReference!
@@ -430,7 +430,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         let notifacations = ref.child("notificationRequests")
         
-        var notifacation = NSDictionary();
+        let notifacation = NSDictionary();
         notifacation.setValue(user, forKey: "username")
         notifacation.setValue(message, forKey: "message")
         
@@ -454,11 +454,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.messages.count
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData!
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData!
     {
         let data = self.messages[indexPath.row]
         
@@ -466,12 +466,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         return data
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, didDeleteMessageAtIndexPath indexPath: NSIndexPath!) {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didDeleteMessageAt indexPath: IndexPath!) {
         
-        self.messages.removeAtIndex(indexPath.row)
+        self.messages.remove(at: indexPath.row)
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource!
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource!
     {
         let data = messages[indexPath.row]
         if data.senderId() == self.senderId
@@ -484,18 +484,18 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
     }
-    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         
         if(isExistingGroup == true)
         {
-            let date = NSDateFormatter()
+            let date = DateFormatter()
             date.dateFormat = "MMM d, yyyy hh:mm:ss a"
             
-            let formatString: NSString = NSDateFormatter.dateFormatFromTemplate("j", options: 0, locale: NSLocale.currentLocale())!
-            let hasAMPM = formatString.containsString("a")
+            let formatString: NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString
+            let hasAMPM = formatString.contains("a")
             
             
             if(hasAMPM == true)
@@ -508,31 +508,31 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             }
 
             
-            let newDate = date.stringFromDate(NSDate())
+            let newDate = date.string(from: Date())
 //            newDate = newDate.stringByReplacingOccurrencesOfString("AM", withString: "am")
 //            newDate = newDate.stringByReplacingOccurrencesOfString("PM", withString: "pm")
             
             let dict : NSMutableDictionary = NSMutableDictionary()
             let arrGrpData : NSMutableArray = NSMutableArray()
-            dict.setObject(text, forKey:  "message")
-            dict.setObject("false", forKey: "stared")
-            dict.setObject(newDate, forKey: "timeStamp")
-            dict.setObject(Constants.loginFields.userId, forKey: "userId")
-            dict.setObject(Constants.loginFields.name, forKey: "userName")
-            arrGrpData.addObject(dict)
+            dict.setObject(text, forKey:  "message" as NSCopying)
+            dict.setObject("false", forKey: "stared" as NSCopying)
+            dict.setObject(newDate, forKey: "timeStamp" as NSCopying)
+            dict.setObject(Constants.loginFields.userId, forKey: "userId" as NSCopying)
+            dict.setObject(Constants.loginFields.name, forKey: "userName" as NSCopying)
+            arrGrpData.add(dict)
             if(text.length>0)
             {
                 let data = [Constants.GroupFields.lastMessage: text as String]
                 let str = text
-                sendGroupChatMessage(data, arrGrpData: arrGrpData,text: str)
-                finishSendingMessageAnimated(false)
+                sendGroupChatMessage(data, arrGrpData: arrGrpData,text: str!)
+                finishSendingMessage(animated: false)
             }
         }
         else
         {
             let data = [Constants.MessageFields.text: text as String]
             self.sendMessage(data,text: text)
-            self.finishSendingMessageAnimated(false)
+            self.finishSendingMessage(animated: false)
             
             //**** FOR RECENT CHAT STORING ****
             if(text.length>0)
@@ -543,21 +543,21 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
-    override func didPressAccessoryButton(sender: UIButton!)
+    override func didPressAccessoryButton(_ sender: UIButton!)
     {
         
     }
     
     //MARK:- Updating existing group Chatting
     //MARK:-
-    func sendGroupChatMessage(data: [String: String], arrGrpData : NSMutableArray, text : String)
+    func sendGroupChatMessage(_ data: [String: String], arrGrpData : NSMutableArray, text : String)
     {
         var mdata = data
-        let date = NSDateFormatter()
+        let date = DateFormatter()
         date.dateFormat = "MMM d, yyyy hh:mm:ss a"
         
-        let formatString: NSString = NSDateFormatter.dateFormatFromTemplate("j", options: 0, locale: NSLocale.currentLocale())!
-        let hasAMPM = formatString.containsString("a")
+        let formatString: NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString
+        let hasAMPM = formatString.contains("a")
         
         if(hasAMPM == true)
         {
@@ -568,7 +568,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             date.dateFormat = "MMM d, yyyy HH:mm:ss a"
         }
         
-        let newDate = date.stringFromDate(NSDate())
+        let newDate = date.string(from: Date())
         mdata[Constants.GroupFields.adminId] = self.getID
         mdata[Constants.GroupFields.adminName] = Constants.loginFields.name
         mdata[Constants.GroupFields.timeStamp] = String(newDate)
@@ -582,9 +582,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         for i in 0..<arrGrpData.count
         {
-            ref.child("groupChat").child(self.groupId).childByAutoId().setValue(arrGrpData.objectAtIndex(i) as! [NSObject : AnyObject])
+            ref.child("groupChat").child(self.groupId).childByAutoId().setValue(arrGrpData.object(at: i) as! [AnyHashable: Any])
         }
-        ref.child("group").child(groupId).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        ref.child("group").child(groupId).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if snapshot.exists()
             {
@@ -598,9 +598,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 
             }
             let dict : NSMutableDictionary = NSMutableDictionary()
-            dict.setObject(self.groupName, forKey: "title")
-            dict.setObject(text, forKey: "body")
-            dict.setObject(self.groupId, forKey: "topic_key")
+            dict.setObject(self.groupName, forKey: "title" as NSCopying)
+            dict.setObject(text, forKey: "body" as NSCopying)
+            dict.setObject(self.groupId, forKey: "topic_key" as NSCopying)
             
             HttpManager.sharedInstance.postGroup("", loaderShow: false, dict: dict, SuccessCompletion: { (result) in
                 
@@ -613,14 +613,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK:- will send message data
     //MARK:-
-    func sendMessage(data: [String: String], text : String) {
+    func sendMessage(_ data: [String: String], text : String) {
         
         var mdata = data
-        let date = NSDateFormatter()
+        let date = DateFormatter()
         date.dateFormat = "MMM d, yyyy hh:mm:ss aa"
         
-        let formatString: NSString = NSDateFormatter.dateFormatFromTemplate("j", options: 0, locale: NSLocale.currentLocale())!
-        let hasAMPM = formatString.containsString("a")
+        let formatString: NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString
+        let hasAMPM = formatString.contains("a")
 
         
         if(hasAMPM == true)
@@ -632,7 +632,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             date.dateFormat = "MMM d, yyyy HH:mm:ss a"
         }
 
-        let newDate = date.stringFromDate(NSDate())
+        let newDate = date.string(from: Date())
       //  newDate = newDate.stringByReplacingOccurrencesOfString("AM", withString: "am")
       //  newDate = newDate.stringByReplacingOccurrencesOfString("PM", withString: "pm")
         if(AppState.sharedInstance.displayName?.length == 0)
@@ -656,9 +656,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         {
             ref.child("chat").child(newTopicChatID).childByAutoId().setValue(mdata)
             let dict : NSMutableDictionary = NSMutableDictionary()
-            dict.setObject(userName, forKey: "title")
-            dict.setObject(text, forKey: "body")
-            dict.setObject(deviceToken, forKey: "device_key")
+            dict.setObject(userName, forKey: "title" as NSCopying)
+            dict.setObject(text, forKey: "body" as NSCopying)
+            dict.setObject(deviceToken, forKey: "device_key" as NSCopying)
             
             
             //Let the user know they have a new message
@@ -677,14 +677,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK:- SEND LAST MESSAGE
     //MARK:-
-    func sendLastMessage(data: [String: String]) {
+    func sendLastMessage(_ data: [String: String]) {
         var mdata = data
         var arrkeys : NSMutableArray!
-        let date = NSDateFormatter()
+        let date = DateFormatter()
         date.dateFormat = "MMM d, yyyy hh:mm:ss a"
         
-        let formatString: NSString = NSDateFormatter.dateFormatFromTemplate("j", options: 0, locale: NSLocale.currentLocale())!
-        let hasAMPM = formatString.containsString("a")
+        let formatString: NSString = DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)! as NSString
+        let hasAMPM = formatString.contains("a")
         
         if(hasAMPM == true)
         {
@@ -697,7 +697,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         let refRecentChat = ref.child("recentChat").child(getID)
         
-        refRecentChat.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        refRecentChat.observeSingleEvent(of: .value, with: { (snapshot) in
             
             if snapshot.exists()
             {
@@ -706,8 +706,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 for i in 0..<arrkeys.count
                 {
                     let object =  arrkeys.filter({ (obj) -> Bool in
-                        let dict = snapshot.childSnapshotForPath(obj as! String).valueInExportFormat() as! NSDictionary
-                        return dict.objectForKey("recentUserId") as! String == self.userId
+                        let dict = snapshot.childSnapshot(forPath: obj as! String).valueInExportFormat() as! NSDictionary
+                        return dict.object(forKey: "recentUserId") as! String == self.userId
                     })
                     if(object.first != nil)
                     {
@@ -718,14 +718,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 {
                     self.childKey = self.getCurrentObject
                     mdata[Constants.recentMessageField.recentUserId] = self.userId
-                    mdata[Constants.MessageFields.timeStamp] = String(date.stringFromDate(NSDate()))
+                    mdata[Constants.MessageFields.timeStamp] = String(date.string(from: Date()))
                     ref.child("recentChat").child(self.getID).child(self.childKey).updateChildValues(mdata)
                     
                 }
                 else
                 {
                     mdata[Constants.recentMessageField.recentUserId] = self.userId
-                    mdata[Constants.MessageFields.timeStamp] = String(date.stringFromDate(NSDate()))
+                    mdata[Constants.MessageFields.timeStamp] = String(date.string(from: Date()))
                     let postRecentRef = ref.child("recentChat").child(self.getID)
                     let postRecentRef1 = postRecentRef.childByAutoId()
                     postRecentRef1.setValue(mdata)
@@ -735,7 +735,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             else
             {
                 mdata[Constants.recentMessageField.recentUserId] = self.userId
-                mdata[Constants.MessageFields.timeStamp] = String(date.stringFromDate(NSDate()))
+                mdata[Constants.MessageFields.timeStamp] = String(date.string(from: Date()))
                 let postRecentRef = ref.child("recentChat").child(self.getID)
                 let postRecentRef1 = postRecentRef.childByAutoId()
                 postRecentRef1.setValue(mdata)
@@ -745,7 +745,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         let refOtherChat = ref.child("recentChat").child(userId)
         
-        refOtherChat.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        refOtherChat.observeSingleEvent(of: .value, with: { (snapshot) in
             
             if(snapshot.exists())
             {
@@ -754,8 +754,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 for i in 0..<arrkeys.count
                 {
                     let object =  arrkeys.filter({ (obj) -> Bool in
-                        let dict = snapshot.childSnapshotForPath(obj as! String).valueInExportFormat() as! NSDictionary
-                        return dict.objectForKey("recentUserId") as! String == self.getID
+                        let dict = snapshot.childSnapshot(forPath: obj as! String).valueInExportFormat() as! NSDictionary
+                        return dict.object(forKey: "recentUserId") as! String == self.getID
                     })
                     if(object.first != nil)
                     {
@@ -768,14 +768,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                     self.otherChildKey = self.getOtherObject
                     
                     mdata[Constants.recentMessageField.recentUserId] = self.getID
-                    mdata[Constants.MessageFields.timeStamp] = String(date.stringFromDate(NSDate()))
+                    mdata[Constants.MessageFields.timeStamp] = String(date.string(from: Date()))
                     ref.child("recentChat").child(self.userId).child(self.otherChildKey).updateChildValues(mdata)
                     
                 }
                 else
                 {
                     mdata[Constants.recentMessageField.recentUserId] = self.getID
-                    mdata[Constants.MessageFields.timeStamp] = String(date.stringFromDate(NSDate()))
+                    mdata[Constants.MessageFields.timeStamp] = String(date.string(from: Date()))
                     let postRecentRef = ref.child("recentChat").child(self.userId)
                     let postRecentRef1 = postRecentRef.childByAutoId()
                     postRecentRef1.setValue(mdata)
@@ -786,7 +786,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             else
             {
                 mdata[Constants.recentMessageField.recentUserId] = self.getID
-                mdata[Constants.MessageFields.timeStamp] = String(date.stringFromDate(NSDate()))
+                mdata[Constants.MessageFields.timeStamp] = String(date.string(from: Date()))
                 let postRecentRef = ref.child("recentChat").child(self.userId)
                 let postRecentRef1 = postRecentRef.childByAutoId()
                 postRecentRef1.setValue(mdata)
@@ -798,10 +798,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK:- Check whether chat topic exists or not
     //MARK:-
     
-    func checkTopicChatExist(handler:((Bool)->Void))
+    func checkTopicChatExist(_ handler:@escaping ((Bool)->Void))
     {
         let refChatExists = ref.child("chat")
-        refChatExists.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        refChatExists.observeSingleEvent(of: .value, with: { (snapshot) in
             
             
             self.newTopicChatID = "\(self.getID)to" + self.userId
@@ -824,11 +824,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 if(self.getID.length > 0 && self.userId.length>0)
                 {
                     self.newTopicChatID = "\(self.getID)to" + self.userId
-                    let date = NSDateFormatter()
+                    let date = DateFormatter()
                     date.dateFormat = "MMM d, yyyy hh:mm:ss a"
-                    var newDate = date.stringFromDate(NSDate())
-                    newDate = newDate.stringByReplacingOccurrencesOfString("AM", withString: "am")
-                    newDate = newDate.stringByReplacingOccurrencesOfString("PM", withString: "pm")
+                    var newDate = date.string(from: Date())
+                    newDate = newDate.replacingOccurrences(of: "AM", with: "am")
+                    newDate = newDate.replacingOccurrences(of: "PM", with: "pm")
                     handler(true)
                     return
                 }
@@ -839,60 +839,60 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK:- Get Group Users
     //MARK:-
-    func getGroupUsers(groupId : String, handler:((Bool)->Void))
+    func getGroupUsers(_ groupId : String, handler:@escaping ((Bool)->Void))
     {
         self.arrFilteredContacts.removeAllObjects()
         self.arrFilteredContacts = UserDefaults.sharedInstance.GetArrayFromUserDefault(allContacts)
         arrGroupUsers.removeAllObjects()
-        let getGroupRef = ref.child("groupUsers").queryOrderedByChild("groupId").queryEqualToValue("\(groupId)")
-        getGroupRef.observeEventType(.Value, withBlock: { (snapshot) in
+        let getGroupRef = ref.child("groupUsers").queryOrdered(byChild: "groupId").queryEqual(toValue: "\(groupId)")
+        getGroupRef.observe(.value, with: { (snapshot) in
             if(snapshot.exists())
             {
                 let dicttempUser = snapshot.valueInExportFormat() as! NSMutableDictionary
                 for strchildrenid in dicttempUser.allKeys{
                     
                     let dict: NSMutableDictionary = NSMutableDictionary()
-                    let dicttemp = dicttempUser.valueForKey(strchildrenid as! String)
-                    dict.setObject((dicttemp?.valueForKey("groupId"))!, forKey: "groupId")
-                    dict.setObject((dicttemp?.valueForKey("profilePic"))!, forKey: "profilePic")
-                    dict.setObject((dicttemp?.valueForKey("groupId"))!, forKey: "groupId")
-                    dict.setObject((dicttemp?.valueForKey("userId"))!, forKey: "userId")
-                    dict.setObject((dicttemp?.valueForKey("userName"))!, forKey: "contactName")
-                    dict.setObject((dicttemp?.valueForKey("userType"))!, forKey: "userType")
+                    let dicttemp = dicttempUser.value(forKey: strchildrenid as! String)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "groupId"))!, forKey: "groupId" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "profilePic"))!, forKey: "profilePic" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "groupId"))!, forKey: "groupId" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "userId"))!, forKey: "userId" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "userName"))!, forKey: "contactName" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "userType"))!, forKey: "userType" as NSCopying)
                     
                     let regextest:NSPredicate = NSPredicate(format: "( userId CONTAINS[C] %@ )", argumentArray: [dict["userId"]!])
                     let arrTemp:NSMutableArray = self.arrFilteredContacts.mutableCopy() as! NSMutableArray
-                    arrTemp.filterUsingPredicate(regextest)
+                    arrTemp.filter(using: regextest)
                     if(arrTemp.firstObject != nil)
                     {
                         let tempDict : NSMutableDictionary = NSMutableDictionary()
-                        tempDict.setObject((arrTemp.firstObject!.valueForKey("phoneNo"))!, forKey:"contactNumber")
-                        tempDict.setObject((arrTemp.firstObject!.valueForKey("contactName"))!, forKey:"contactName")
-                        tempDict.setObject(dict.objectForKey("userId")!, forKey:"userId")
-                        tempDict.setObject(dict.objectForKey("groupId")!, forKey:"groupId")
-                        tempDict.setObject(dict.objectForKey("contactName")!, forKey:"userName")
-                        tempDict.setObject(dict.objectForKey("profilePic")!, forKey:"profilePic")
-                        tempDict.setObject(dict.objectForKey("userType")!, forKey:"userType")
-                        self.arrGroupUsers.addObject(tempDict)
+                        tempDict.setObject(((arrTemp.firstObject! as AnyObject).value(forKey: "phoneNo"))!, forKey:"contactNumber" as NSCopying)
+                        tempDict.setObject(((arrTemp.firstObject! as AnyObject).value(forKey: "contactName"))!, forKey:"contactName" as NSCopying)
+                        tempDict.setObject(dict.object(forKey: "userId")!, forKey:"userId" as NSCopying)
+                        tempDict.setObject(dict.object(forKey: "groupId")!, forKey:"groupId" as NSCopying)
+                        tempDict.setObject(dict.object(forKey: "contactName")!, forKey:"userName" as NSCopying)
+                        tempDict.setObject(dict.object(forKey: "profilePic")!, forKey:"profilePic" as NSCopying)
+                        tempDict.setObject(dict.object(forKey: "userType")!, forKey:"userType" as NSCopying)
+                        self.arrGroupUsers.add(tempDict)
                         
                     }
                     else
                     {
-                        let strKey = dict.valueForKey("userId") as!String
+                        let strKey = dict.value(forKey: "userId") as!String
                         let userRef = ref.child("users").child(strKey)
-                        userRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
                             if(snapshot.exists())
                             {
                                 let tempDict : NSMutableDictionary = NSMutableDictionary()
-                                tempDict.setObject(snapshot.value!.valueForKey("phoneNo")!, forKey:"contactName")
-                                tempDict.setObject(strKey, forKey:"userId")
-                                tempDict.setObject(snapshot.value!.valueForKey("profilePic")!, forKey:"profilePic")
-                                tempDict.setObject(snapshot.value!.valueForKey("status")!, forKey:"status")
-                                tempDict.setObject(dict.objectForKey("groupId")!, forKey:"groupId")
-                                tempDict.setObject(dict.objectForKey("contactName")!, forKey:"userName")
-                                tempDict.setObject(dict.objectForKey("profilePic")!, forKey:"profilePic")
-                                tempDict.setObject(dict.objectForKey("userType")!, forKey:"userType")
-                                self.arrGroupUsers.addObject(tempDict)
+                                tempDict.setObject((snapshot.value! as AnyObject).value(forKey: "phoneNo")!, forKey:"contactName" as NSCopying)
+                                tempDict.setObject(strKey, forKey:"userId" as NSCopying)
+                                tempDict.setObject((snapshot.value! as AnyObject).value(forKey: "profilePic")!, forKey:"profilePic" as NSCopying)
+                                tempDict.setObject((snapshot.value! as AnyObject).value(forKey: "status")!, forKey:"status" as NSCopying)
+                                tempDict.setObject(dict.object(forKey: "groupId")!, forKey:"groupId" as NSCopying)
+                                tempDict.setObject(dict.object(forKey: "contactName")!, forKey:"userName" as NSCopying)
+                                tempDict.setObject(dict.object(forKey: "profilePic")!, forKey:"profilePic" as NSCopying)
+                                tempDict.setObject(dict.object(forKey: "userType")!, forKey:"userType" as NSCopying)
+                                self.arrGroupUsers.add(tempDict)
                                 
                             }
                         })
@@ -908,14 +908,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     //MARK:- Open Dot Menu
     //MARK:-
     func openMenu()  {
-        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         // 2
-        let viewCon = UIAlertAction(title:"View Contact" , style: .Default, handler: {
+        let viewCon = UIAlertAction(title:"View Contact" , style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             if self.isExistingGroup == true
             {
-                let groupProfileVC : GroupProfileViewController = self.storyboard?.instantiateViewControllerWithIdentifier("GroupProfileViewController") as! GroupProfileViewController
+                let groupProfileVC : GroupProfileViewController = self.storyboard?.instantiateViewController(withIdentifier: "GroupProfileViewController") as! GroupProfileViewController
                 groupProfileVC.lblGroupName.text = self.groupName
                 groupProfileVC.groupId = self.groupId
                 if(self.imgGroupIcon.image == UIImage(named: "grp_icon"))
@@ -932,32 +932,32 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             else
             {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let displayProfileVC = storyboard.instantiateViewControllerWithIdentifier("DisplayProfileViewController") as! DisplayProfileViewController
+                let displayProfileVC = storyboard.instantiateViewController(withIdentifier: "DisplayProfileViewController") as! DisplayProfileViewController
                 displayProfileVC.isNavigateFrom = "Chat"
                 displayProfileVC.userId = self.userId
                 
                 self.navigationController?.pushViewController(displayProfileVC, animated: true)
             }
         })
-        let media = UIAlertAction(title: "Media", style: .Default, handler: {
+        let media = UIAlertAction(title: "Media", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             
             displayAlert("This feature will be available in next version", presentVC: self)
             
         })
-        let search = UIAlertAction(title: "Search", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
-
-            displayAlert("This feature will be available in next version", presentVC: self)
-            
-        })
-        let wallpaper = UIAlertAction(title: "Wallpaper", style: .Default, handler: {
+        let search = UIAlertAction(title: "Search", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
 
             displayAlert("This feature will be available in next version", presentVC: self)
             
         })
-        let more = UIAlertAction(title: "More", style: .Default, handler: {
+        let wallpaper = UIAlertAction(title: "Wallpaper", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+
+            displayAlert("This feature will be available in next version", presentVC: self)
+            
+        })
+        let more = UIAlertAction(title: "More", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
 
             displayAlert("This feature will be available in next version", presentVC: self)
@@ -965,7 +965,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         })
         
         //
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
@@ -980,79 +980,79 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         optionMenu.addAction(cancelAction)
         
         // 5
-        self.presentViewController(optionMenu, animated: true, completion: nil)
+        self.present(optionMenu, animated: true, completion: nil)
     }
     
     ///Mark:- Date Format
-    func getDayFromDate(withDate date:NSDate) -> Int
+    func getDayFromDate(withDate date:Date) -> Int
     {
-        let dateFormat:NSDateFormatter = NSDateFormatter()
+        let dateFormat:DateFormatter = DateFormatter()
         dateFormat.dateFormat = "dd";
-        let stringDate:String = dateFormat.stringFromDate(date);
+        let stringDate:String = dateFormat.string(from: date);
         let day:Int = Int(stringDate)!
         return day;
     }
     
     //MARK:- Convert Date / Formatting Date
    //MARK:-
-    func getDate(fromString strDate:String, withDateFormat format:String) -> NSDate
+    func getDate(fromString strDate:String, withDateFormat format:String) -> Date
     {
-        let dateFormat:NSDateFormatter = NSDateFormatter()
+        let dateFormat:DateFormatter = DateFormatter()
         
         dateFormat.dateFormat = format;
         
-        if(dateFormat.dateFromString(strDate) == nil){
+        if(dateFormat.date(from: strDate) == nil){
             dateFormat.dateFormat = "MMM d, yyyy HH:mm:ss a"
-            return dateFormat.dateFromString(strDate)!
+            return dateFormat.date(from: strDate)!
         }else{
             dateFormat.dateFormat = format;
-            return dateFormat.dateFromString(strDate)!
+            return dateFormat.date(from: strDate)!
         }
 }
     
     //MARK:- Get Group Users
     //MARK:-
-    func getGroupsUsers(flag : Bool, Id : String,completionHandler :()-> Void)
+    func getGroupsUsers(_ flag : Bool, Id : String,completionHandler :@escaping ()-> Void)
     {
         arrGroupUsers.removeAllObjects()
         ShowLoader()
         
         let getGroupRef = ref.child("groupUsers")
-        getGroupRef.queryOrderedByChild("groupId").queryEqualToValue("\(Id)").observeEventType(.Value, withBlock: { (snapshot) in
+        getGroupRef.queryOrdered(byChild: "groupId").queryEqual(toValue: "\(Id)").observe(.value, with: { (snapshot) in
             
             if(snapshot.exists())
             {
                 let dicttempUser = snapshot.valueInExportFormat() as! NSMutableDictionary
                 for strchildrenid in dicttempUser.allKeys{
                     let dict: NSMutableDictionary = NSMutableDictionary()
-                    let dicttemp = dicttempUser.valueForKey(strchildrenid as! String)
-                    dict.setObject((dicttemp?.valueForKey("groupId"))!, forKey: "groupId")
-                    dict.setObject((dicttemp?.valueForKey("profilePic"))!, forKey: "profilePic")
-                    dict.setObject((dicttemp?.valueForKey("groupId"))!, forKey: "groupId")
-                    dict.setObject((dicttemp?.valueForKey("userId"))!, forKey: "userId")
-                    dict.setObject((dicttemp?.valueForKey("userName"))!, forKey: "userName")
-                    dict.setObject((dicttemp?.valueForKey("userType"))!, forKey: "userType")
+                    let dicttemp = dicttempUser.value(forKey: strchildrenid as! String)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "groupId"))!, forKey: "groupId" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "profilePic"))!, forKey: "profilePic" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "groupId"))!, forKey: "groupId" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "userId"))!, forKey: "userId" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "userName"))!, forKey: "userName" as NSCopying)
+                    dict.setObject(((dicttemp as AnyObject).value(forKey: "userType"))!, forKey: "userType" as NSCopying)
                     
                      //Filtering whether user exists in Contacts
                     let regextest:NSPredicate = NSPredicate(format: "( userId CONTAINS[C] %@ )", argumentArray: [dict["userId"]!])
                     let arrTemp:NSMutableArray = self.arrFilteredContacts.mutableCopy() as! NSMutableArray
-                    arrTemp.filterUsingPredicate(regextest)
+                    arrTemp.filter(using: regextest)
                     
                     if(arrTemp.firstObject != nil)
                     {
                         let tempDict : NSMutableDictionary = NSMutableDictionary()
-                        tempDict.setObject((arrTemp.firstObject!.valueForKey("phoneNo"))!, forKey:"contactNumber")
-                        tempDict.setObject((arrTemp.firstObject!.valueForKey("contactName"))!, forKey:"contactName")
-                        tempDict.setObject((arrTemp.firstObject!.valueForKey("deviceToken"))!,  forKey:"deviceToken")
-                        tempDict.setObject(dict.objectForKey("userId")!, forKey:"userId")
-                        tempDict.setObject(dict.objectForKey("groupId")!, forKey:"groupId")
-                        tempDict.setObject(dict.objectForKey("userName")!, forKey:"userName")
-                        tempDict.setObject((arrTemp.firstObject!.valueForKey("profilePic"))!,  forKey:"profilePic")
-                        tempDict.setObject(dict.objectForKey("userType")!, forKey:"userType")
+                        tempDict.setObject(((arrTemp.firstObject! as AnyObject).value(forKey: "phoneNo"))!, forKey:"contactNumber" as NSCopying)
+                        tempDict.setObject(((arrTemp.firstObject! as AnyObject).value(forKey: "contactName"))!, forKey:"contactName" as NSCopying)
+                        tempDict.setObject(((arrTemp.firstObject! as AnyObject).value(forKey: "deviceToken"))!,  forKey:"deviceToken" as NSCopying)
+                        tempDict.setObject(dict.object(forKey: "userId")!, forKey:"userId" as NSCopying)
+                        tempDict.setObject(dict.object(forKey: "groupId")!, forKey:"groupId" as NSCopying)
+                        tempDict.setObject(dict.object(forKey: "userName")!, forKey:"userName" as NSCopying)
+                        tempDict.setObject(((arrTemp.firstObject! as AnyObject).value(forKey: "profilePic"))!,  forKey:"profilePic" as NSCopying)
+                        tempDict.setObject(dict.object(forKey: "userType")!, forKey:"userType" as NSCopying)
                         
-                        let regextest:NSPredicate = NSPredicate(format: "( userId CONTAINS[C] %@ )", argumentArray: [(tempDict.valueForKey("userId"))!])
+                        let regextest:NSPredicate = NSPredicate(format: "( userId CONTAINS[C] %@ )", argumentArray: [(tempDict.value(forKey: "userId"))!])
                         let arrTemp1:NSMutableArray = self.arrGroupUsers.mutableCopy() as! NSMutableArray
-                        arrTemp1.filterUsingPredicate(regextest)
+                        arrTemp1.filter(using: regextest)
                         
                         if(arrTemp1.firstObject != nil)
                         {
@@ -1060,32 +1060,32 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                         }
                         else
                         {
-                            self.arrGroupUsers.addObject(tempDict)
+                            self.arrGroupUsers.add(tempDict)
                             
                         }
                     }
                     else
                     {
                         //The user that donot exists in Contacts will retrieve their data from Firebase
-                        let strKey = dict.valueForKey("userId") as!String
-                        ref.child("users").child(strKey).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+                        let strKey = dict.value(forKey: "userId") as!String
+                        ref.child("users").child(strKey).observeSingleEvent(of: .value, with: { (snapshot) in
                             if snapshot.exists()
                             {
                                 let tempDict : NSMutableDictionary = NSMutableDictionary()
-                                tempDict.setObject(snapshot.value!.valueForKey("phoneNo")!, forKey:"contactName")
-                                tempDict.setObject(strKey, forKey:"userId")
-                                tempDict.setObject(snapshot.value!.valueForKey("profilePic")!, forKey:"profilePic")
-                                tempDict.setObject(snapshot.value!.valueForKey("deviceToken")!, forKey:"deviceToken")
-                                tempDict.setObject(snapshot.value!.valueForKey("status")!, forKey:"status")
-                                tempDict.setObject(dict.objectForKey("groupId")!, forKey:"groupId")
-                                tempDict.setObject(dict.objectForKey("userName")!, forKey:"userName")
-                                tempDict.setObject(dict.objectForKey("profilePic")!, forKey:"profilePic")
-                                tempDict.setObject(dict.objectForKey("userType")!, forKey:"userType")
+                                tempDict.setObject((snapshot.value! as AnyObject).value(forKey: "phoneNo")!, forKey:"contactName" as NSCopying)
+                                tempDict.setObject(strKey, forKey:"userId" as NSCopying)
+                                tempDict.setObject((snapshot.value! as AnyObject).value(forKey: "profilePic")!, forKey:"profilePic" as NSCopying)
+                                tempDict.setObject((snapshot.value! as AnyObject).value(forKey: "deviceToken")!, forKey:"deviceToken" as NSCopying)
+                                tempDict.setObject((snapshot.value! as AnyObject).value(forKey: "status")!, forKey:"status" as NSCopying)
+                                tempDict.setObject(dict.object(forKey: "groupId")!, forKey:"groupId" as NSCopying)
+                                tempDict.setObject(dict.object(forKey: "userName")!, forKey:"userName" as NSCopying)
+                                tempDict.setObject(dict.object(forKey: "profilePic")!, forKey:"profilePic" as NSCopying)
+                                tempDict.setObject(dict.object(forKey: "userType")!, forKey:"userType" as NSCopying)
                                 
                                
-                                let regextest:NSPredicate = NSPredicate(format: "( userId CONTAINS[C] %@ )", argumentArray: [(tempDict.valueForKey("userId"))!])
+                                let regextest:NSPredicate = NSPredicate(format: "( userId CONTAINS[C] %@ )", argumentArray: [(tempDict.value(forKey: "userId"))!])
                                 let arrTemp2:NSMutableArray = self.arrGroupUsers.mutableCopy() as! NSMutableArray
-                                arrTemp2.filterUsingPredicate(regextest)
+                                arrTemp2.filter(using: regextest)
                                 
                                 if(arrTemp2.firstObject != nil)
                                 {
@@ -1093,7 +1093,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                                 }
                                 else
                                 {
-                                    self.arrGroupUsers.addObject(tempDict)
+                                    self.arrGroupUsers.add(tempDict)
                                 }
                             }
                             completionHandler()

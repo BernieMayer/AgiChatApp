@@ -12,7 +12,7 @@ class Message : NSObject, JSQMessageData
 {
     var text_: String = ""
     var sender_: String = ""
-    var date_: NSDate
+    var date_: Date
 
     var imageUrl_: String?
     
@@ -20,13 +20,13 @@ class Message : NSObject, JSQMessageData
     var isMediaMessage_:Bool = false
     var sectionName_:String = ""
     
-    convenience init(text: String?, sender: String?, withSenderDisplayName displayName:String?, withMedia isMedia:Bool, withMessageHase messageHash:UInt,withDate date:NSDate, withStrDate strDate:NSString )
+    convenience init(text: String?, sender: String?, withSenderDisplayName displayName:String?, withMedia isMedia:Bool, withMessageHase messageHash:UInt,withDate date:Date, withStrDate strDate:NSString )
     {
         self.init(text: text, sender: sender, imageUrl: nil, withSenderDisplayName:displayName, withMedia: isMedia, withMessageHase: messageHash,withDate: date)
         
     }
     
-    init(text: String?, sender: String?, imageUrl: String?, withSenderDisplayName displayName:String?, withMedia isMedia:Bool, withMessageHase messageHash:UInt, withDate date:NSDate) {
+    init(text: String?, sender: String?, imageUrl: String?, withSenderDisplayName displayName:String?, withMedia isMedia:Bool, withMessageHase messageHash:UInt, withDate date:Date) {
         self.text_ = text!
         self.sender_ = sender!
         self.date_ = date
@@ -56,7 +56,7 @@ class Message : NSObject, JSQMessageData
     {
         return senderDisplayName_
     }
-    func date() -> NSDate! {
+    func date() -> Date! {
         return date_;
     }
     func isMediaMessage() -> Bool

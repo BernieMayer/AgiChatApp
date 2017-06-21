@@ -29,15 +29,15 @@ class ChatGridCustomCell: UICollectionViewCell {
         imgViewProfile.layer.masksToBounds = true
         lblOnlineStatus.layer.masksToBounds = true
         lblMsgCount.layer.masksToBounds = true
-        lblMsgCount.hidden = true
-        imgViewProfile.layer.cornerRadius = CGRectGetWidth(imgViewProfile.frame)/2.3
-        lblOnlineStatus.layer.cornerRadius = CGRectGetWidth(lblOnlineStatus.frame)/2
-        lblMsgCount.layer.cornerRadius = CGRectGetWidth(lblMsgCount.frame)/3
+        lblMsgCount.isHidden = true
+        imgViewProfile.layer.cornerRadius = imgViewProfile.frame.width/2.3
+        lblOnlineStatus.layer.cornerRadius = lblOnlineStatus.frame.width/2
+        lblMsgCount.layer.cornerRadius = lblMsgCount.frame.width/3
         
         
     }
     
-    func UpdateCell(userId : String, isComingFrom : String )
+    func UpdateCell(_ userId : String, isComingFrom : String )
     {
         if(isComingFrom == "Chat")
         {
@@ -47,7 +47,7 @@ class ChatGridCustomCell: UICollectionViewCell {
     }
  
     
-    func getRecentChat(userId:String)
+    func getRecentChat(_ userId:String)
     {
         
         //Getting User name for recent chats
@@ -55,7 +55,7 @@ class ChatGridCustomCell: UICollectionViewCell {
        // ref = FIRDatabase.database().reference()
         
         
-        self.ref.child("users").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        self.ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             let dicttempUser = snapshot.valueInExportFormat() as! NSMutableDictionary
             
             if(snapshot.exists())
@@ -63,12 +63,12 @@ class ChatGridCustomCell: UICollectionViewCell {
                 for strchildrenid in dicttempUser.allKeys{
                     let dict: NSMutableDictionary = NSMutableDictionary()
                     
-                    var dicttemp = dicttempUser.valueForKey(strchildrenid as! String)
-                    dict.setObject(strchildrenid as! String, forKey: "Id")
-                    dict.setObject((dicttemp!.valueForKey("firstName"))!, forKey: "firstName")
-                    dict.setObject((dicttemp!.valueForKey("lastName"))!, forKey: "lastName")
+                    var dicttemp = dicttempUser.value(forKey: strchildrenid as! String)
+                    dict.setObject(strchildrenid as! String, forKey: "Id" as NSCopying)
+                    dict.setObject(((dicttemp! as AnyObject).value(forKey: "firstName"))!, forKey: "firstName" as NSCopying)
+                    dict.setObject(((dicttemp! as AnyObject).value(forKey: "lastName"))!, forKey: "lastName" as NSCopying)
                     
-                    self.arrRecentUser.addObject(dict)
+                    self.arrRecentUser.add(dict)
                     
                     
                     
@@ -77,10 +77,10 @@ class ChatGridCustomCell: UICollectionViewCell {
                 
                 for i in 0..<self.arrRecentUser.count
                 {
-                    if(self.arrRecentUser.objectAtIndex(i).objectForKey("Id") as! String == userId )
+                    if((self.arrRecentUser.object(at: i) as AnyObject).object(forKey: "Id") as! String == userId )
                     {
                         
-                        self.lblUserName.text =  self.arrRecentUser.objectAtIndex(i).objectForKey("firstName") as? String
+                        self.lblUserName.text =  (self.arrRecentUser.object(at: i) as AnyObject).object(forKey: "firstName") as? String
                         break
                     }
                 }

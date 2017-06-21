@@ -26,10 +26,10 @@ class SingleChatCell: UITableViewCell {
         // Initialization code
         
         imgViewProfile.layer.masksToBounds = true
-        imgViewProfile.layer.cornerRadius = CGRectGetWidth(imgViewProfile.frame)/2.5
+        imgViewProfile.layer.cornerRadius = imgViewProfile.frame.width/2.5
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

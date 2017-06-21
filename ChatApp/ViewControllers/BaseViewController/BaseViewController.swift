@@ -21,22 +21,22 @@ import Foundation
 let internetAlert:String = "Please check your internet connection and try again."
 //MARK: - ACCEPTED_CHARACTERS
 
-let ACCEPTED_ALPHABATS: NSCharacterSet = NSCharacterSet(charactersInString: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.").invertedSet
-let ACCEPTED_NUMERICS: NSCharacterSet = NSCharacterSet(charactersInString: "1234567890").invertedSet
-let ACCEPTED_ALPHANUMERICS: NSCharacterSet = NSCharacterSet(charactersInString: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890. ").invertedSet
+let ACCEPTED_ALPHABATS: CharacterSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz.").inverted
+let ACCEPTED_NUMERICS: CharacterSet = CharacterSet(charactersIn: "1234567890").inverted
+let ACCEPTED_ALPHANUMERICS: CharacterSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890. ").inverted
 
-let ACCEPTED_EMAIL: NSCharacterSet = NSCharacterSet(charactersInString: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@_-.").invertedSet
+let ACCEPTED_EMAIL: CharacterSet = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@_-.").inverted
 
 
 @available(iOS 9.0, *)
 class BaseViewController: UIViewController
 {
-    let MAIN_SCREEN = UIScreen.mainScreen()
-    let MAIN_HEIGHT = UIScreen.mainScreen().bounds.height
-    let MAIN_WIDTH = UIScreen.mainScreen().bounds.width
+    let MAIN_SCREEN = UIScreen.main
+    let MAIN_HEIGHT = UIScreen.main.bounds.height
+    let MAIN_WIDTH = UIScreen.main.bounds.width
     
-    let IMAGE_HEIGHT = UIScreen.mainScreen().bounds.height/100*45
-    var  appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate
+    let IMAGE_HEIGHT = UIScreen.main.bounds.height/100*45
+    var  appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     var navigationColor:UIColor = UIColor(customColor: 29, green: 103, blue: 241, alpha: 1.0);
     
@@ -49,31 +49,31 @@ class BaseViewController: UIViewController
     var boldFontFamily:String = "Calibri-Bold"
     var italicFontFamily:String = "Calibri-Italic"
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         // navigationController!.navigationBar.barTintColor = UIColor.greenColor()
         hideNavigationBar()
         
     }
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    override var preferredStatusBarStyle : UIStatusBarStyle {
         
-        return UIStatusBarStyle.LightContent
+        return UIStatusBarStyle.lightContent
     }
     
     //MARK:- Email Validation
     //MARK:-
-    func isValidEmail(value:String) -> Bool
+    func isValidEmail(_ value:String) -> Bool
     {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluateWithObject(value)
+        return emailTest.evaluate(with: value)
     }
     
     //MARK:- UIView set
     //MArK:-
-    func applyPlainShadow(view: UIView) {
+    func applyPlainShadow(_ view: UIView) {
         
         let layer = view.layer
-        layer.shadowColor = UIColor.grayColor().CGColor
+        layer.shadowColor = UIColor.gray.cgColor
         layer.shadowOffset = CGSize(width:1 , height: 1)
         layer.shadowOpacity = 1
         layer.shadowRadius = 1
@@ -83,7 +83,7 @@ class BaseViewController: UIViewController
     
     //MARK:- Set Color
     //MARK:-
-    func ColorCode(red:CGFloat, green:CGFloat, blue:CGFloat, alpha:CGFloat) -> UIColor
+    func ColorCode(_ red:CGFloat, green:CGFloat, blue:CGFloat, alpha:CGFloat) -> UIColor
     {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: alpha)
     }

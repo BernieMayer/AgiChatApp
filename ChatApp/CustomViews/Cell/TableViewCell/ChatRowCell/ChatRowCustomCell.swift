@@ -26,11 +26,11 @@ class ChatRowCustomCell: UICollectionViewCell {
         super.awakeFromNib()
         arrRecentUser = NSMutableArray()
         imgViewProfile.layer.masksToBounds = true
-        lblMsgCount.hidden = true
-        imgViewProfile.layer.cornerRadius = CGRectGetWidth(imgViewProfile.frame)/2.5
+        lblMsgCount.isHidden = true
+        imgViewProfile.layer.cornerRadius = imgViewProfile.frame.width/2.5
     }
     
-    func UpdateCell(userId : String, isComingFrom : String )
+    func UpdateCell(_ userId : String, isComingFrom : String )
     {
         if(isComingFrom == "Chat")
         {
@@ -39,7 +39,7 @@ class ChatRowCustomCell: UICollectionViewCell {
     }
     
     
-    func getRecentChat(userId:String)
+    func getRecentChat(_ userId:String)
     {
         
          //Getting User name for recent chats
@@ -47,33 +47,33 @@ class ChatRowCustomCell: UICollectionViewCell {
        // ref = FIRDatabase.database().reference()
 
         
-        self.ref.child("users").observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        self.ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
            if(snapshot.exists())
            {
             let dicttempUser = snapshot.valueInExportFormat() as! NSMutableDictionary
             for strchildrenid in dicttempUser.allKeys{
                 let dict: NSMutableDictionary = NSMutableDictionary()
                 
-                var dicttemp = dicttempUser.valueForKey(strchildrenid as! String)
-                dict.setObject(strchildrenid as! String, forKey: "Id")
-                dict.setObject((dicttemp!.valueForKey("firstName"))!, forKey: "firstName")
-                dict.setObject((dicttemp!.valueForKey("lastName"))!, forKey: "lastName")
-                dict.setObject((dicttemp!.valueForKey("profilePic"))!, forKey: "profilePic")
+                var dicttemp = dicttempUser.value(forKey: strchildrenid as! String)
+                dict.setObject(strchildrenid as! String, forKey: "Id" as NSCopying)
+                dict.setObject(((dicttemp! as AnyObject).value(forKey: "firstName"))!, forKey: "firstName" as NSCopying)
+                dict.setObject(((dicttemp! as AnyObject).value(forKey: "lastName"))!, forKey: "lastName" as NSCopying)
+                dict.setObject(((dicttemp! as AnyObject).value(forKey: "profilePic"))!, forKey: "profilePic" as NSCopying)
                 
-                self.arrRecentUser.addObject(dict)
+                self.arrRecentUser.add(dict)
                 
                 dicttemp = nil
             }
             
             for i in 0..<self.arrRecentUser.count
             {
-                if(self.arrRecentUser.objectAtIndex(i).objectForKey("Id") as! String == userId )
+                if((self.arrRecentUser.object(at: i) as AnyObject).object(forKey: "Id") as! String == userId )
                 {
-                    self.lblUserName.text =  self.arrRecentUser.objectAtIndex(i).objectForKey("firstName") as? String
+                    self.lblUserName.text =  (self.arrRecentUser.object(at: i) as AnyObject).object(forKey: "firstName") as? String
                     
-                    let img = self.arrRecentUser.objectAtIndex(i).objectForKey("profilePic") as? String
-                    if let url = NSURL(string: img!) {
-                        if let data = NSData(contentsOfURL: url) {
+                    let img = (self.arrRecentUser.object(at: i) as AnyObject).object(forKey: "profilePic") as? String
+                    if let url = URL(string: img!) {
+                        if let data = try? Data(contentsOf: url) {
                             self.imgViewProfile.image = UIImage(data: data)
                             
                         }

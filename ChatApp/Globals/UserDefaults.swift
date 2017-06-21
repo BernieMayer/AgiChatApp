@@ -7,22 +7,51 @@
 //
 
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 
 
  
 class UserDefaults : NSObject{
     
+    struct Static {
+        static var instance: UserDefaults? = nil
+        static var token: Int = 0
+    }
+    
+    
+    private static var __once: () = {
+                Static.instance = UserDefaults()
+            }()
+    
     
     class var sharedInstance: UserDefaults {
         get {
-            struct Static {
-                static var instance: UserDefaults? = nil
-                static var token: dispatch_once_t = 0
-            }
-            dispatch_once(&Static.token, {
-                Static.instance = UserDefaults()
-            })
+           
+            _ = UserDefaults.__once
             return Static.instance!
         }
     }
@@ -31,58 +60,58 @@ class UserDefaults : NSObject{
     //MARK:- GETTING ARRAY
     //MARK:-
     
-    func GetArrayFromUserDefault(let key:String)->NSMutableArray
+    func GetArrayFromUserDefault(_ key:String)->NSMutableArray
     {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let userDefaults = Foundation.UserDefaults.standard
         var getArray : NSMutableArray = NSMutableArray()
         
-        if(userDefaults.objectForKey(key) != nil && userDefaults.objectForKey(key)?.count > 0)
+        if(userDefaults.object(forKey: key) != nil && (userDefaults.object(forKey: key) as AnyObject).count > 0)
         {
-            getArray =  userDefaults.objectForKey(key)?.mutableCopy() as! NSMutableArray;
+            getArray =  userDefaults.object(forKey: key) as! NSMutableArray;
         }
         return getArray;
     }
     
     //MARK:- SETTING ARRAY
     //MARK:-
-    func SetArrayInUserDefault(let array:NSMutableArray,let key:String)
+    func SetArrayInUserDefault(_ array:NSMutableArray,key:String)
     {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(array, forKey: key);
+        let userDefaults = Foundation.UserDefaults.standard
+        userDefaults.set(array, forKey: key);
         userDefaults.synchronize()
     }
     
     
     //MARK:- SET DICTIONARY
     //MARK:-
-    func SetDicInUserDefault(let dic:NSMutableDictionary,let key:String)
+    func SetDicInUserDefault(_ dic:NSMutableDictionary,key:String)
     {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(dic, forKey: key);
+        let userDefaults = Foundation.UserDefaults.standard
+        userDefaults.set(dic, forKey: key);
         userDefaults.synchronize()
     }
     
     
     //MARK:- SETTING STRING
     //MARK:-
-    func SetNSUserDefaultValues(let key:String,let value:String)
+    func SetNSUserDefaultValues(_ key:String,value:String)
     {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(value, forKey: key);
+        let userDefaults = Foundation.UserDefaults.standard
+        userDefaults.set(value, forKey: key);
         userDefaults.synchronize()
     }
     
     
     //MARK:- GETTING DICTIONARY
     //MARK:-
-    func GetDicFromUserDefault(let key:String) -> NSMutableDictionary
+    func GetDicFromUserDefault(_ key:String) -> NSMutableDictionary
     {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let userDefaults = Foundation.UserDefaults.standard
         var dic:NSMutableDictionary = NSMutableDictionary()
         
-        if(userDefaults.objectForKey(key) != nil)
+        if(userDefaults.object(forKey: key) != nil)
         {
-          dic =  userDefaults.objectForKey(key) as! NSMutableDictionary;
+          dic =  userDefaults.object(forKey: key) as! NSMutableDictionary;
         }
         return dic;
     }
@@ -90,13 +119,13 @@ class UserDefaults : NSObject{
     
     //MARK:- GETTING STRING
     //MARK:-
-    func GetNSUserDefaultValue(let key:String) -> String
+    func GetNSUserDefaultValue(_ key:String) -> String
     {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let userDefaults = Foundation.UserDefaults.standard
         var value:String = ""
-        if(userDefaults.objectForKey(key) != nil)
+        if(userDefaults.object(forKey: key) != nil)
         {
-            value  = userDefaults.objectForKey(key) as! String;
+            value  = userDefaults.object(forKey: key) as! String;
         }
         
         return value;
@@ -105,36 +134,36 @@ class UserDefaults : NSObject{
     
     //MARK:- GETTING VALUES WITHOUT NULL
     //MARK:-
-    func getValuesWithOutNull(yourDictionary:NSDictionary) ->NSMutableDictionary
+    func getValuesWithOutNull(_ yourDictionary:NSDictionary) ->NSMutableDictionary
     {
         let replaced:NSMutableDictionary = NSMutableDictionary(dictionary: yourDictionary)
         let blank:NSString = ""
         for val in yourDictionary
         {
-            let object:AnyObject = yourDictionary.objectForKey(val.key)!
+            let object:AnyObject = yourDictionary.object(forKey: val.key)! as AnyObject
             
             if (object is NSNull)
             {
-                replaced.setObject(blank, forKey: val.key as! String)
+                replaced.setObject(blank, forKey: val.key as! String as NSCopying)
             }
-            else if(object.isKindOfClass(NSDictionary))
+            else if(object.isKind(of: NSDictionary.self))
             {
-                replaced.setObject(getValuesWithOutNull(object as! NSDictionary), forKey: val.key as! String)
+                replaced.setObject(getValuesWithOutNull(object as! NSDictionary), forKey: val.key as! String as NSCopying)
             }
-            else if(object.isKindOfClass(NSArray))
+            else if(object.isKind(of: NSArray.self))
             {
                 let array:NSMutableArray = NSMutableArray(array: object as! NSArray)
                 
                 for i in 0..<array.count
                 {
-                    let object:AnyObject = array.objectAtIndex(i)
+                    let object:AnyObject = array.object(at: i) as AnyObject
                     
-                    if(object.isKindOfClass(NSDictionary))
+                    if(object.isKind(of: NSDictionary.self))
                     {
-                        array.replaceObjectAtIndex(i, withObject: getValuesWithOutNull(object as! NSDictionary))
+                        array.replaceObject(at: i, with: getValuesWithOutNull(object as! NSDictionary))
                     }
                     
-                    replaced.setObject(array, forKey: val.key as! String)
+                    replaced.setObject(array, forKey: val.key as! String as NSCopying)
                 }
             }
         }
@@ -143,9 +172,9 @@ class UserDefaults : NSObject{
 
     //MARK:- Remove user default key
     //MARK:-
-    func RemoveKeyUserFefault(key : String){
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.removeObjectForKey(key)
+    func RemoveKeyUserFefault(_ key : String){
+        let userDefaults = Foundation.UserDefaults.standard
+        userDefaults.removeObject(forKey: key)
     }
     
 }

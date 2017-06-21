@@ -16,31 +16,31 @@ import Foundation
 func getCurrentYear() -> Int
 {
     
-    let date = NSDate()
-    let calendar = NSCalendar.currentCalendar()
-    let components = calendar.components([.Day , .Month , .Year], fromDate: date)
+    let date = Date()
+    let calendar = Calendar.current
+    let components = (calendar as NSCalendar).components([.day , .month , .year], from: date)
     let year =  components.year
-    return year
+    return year!
 }
 
 
 //MARK:- Convert Date to String
 //MARK:-
-func convertDate(str:String) -> String
+func convertDate(_ str:String) -> String
 {
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "MMM dd, yyyy hh:mm:ss a"
-    var date = dateFormatter.dateFromString(str)
+    var date = dateFormatter.date(from: str)
     var dateString:String!
     if(date == nil){
         dateFormatter.dateFormat = "MMM dd, yyyy HH:mm:ss a"
-        date = dateFormatter.dateFromString(str)
+        date = dateFormatter.date(from: str)
         
         dateFormatter.dateFormat = "HH:mm a"
-        dateString  = dateFormatter.stringFromDate(date!)
+        dateString  = dateFormatter.string(from: date!)
     }else{
         dateFormatter.dateFormat = "hh:mm a"
-        dateString  = dateFormatter.stringFromDate(date!)
+        dateString  = dateFormatter.string(from: date!)
     }
     return dateString
 }
@@ -48,15 +48,15 @@ func convertDate(str:String) -> String
 
 //MARK:- Convert Date From String
 //MARK:-
-func convertDateFromString(str:String) -> Int
+func convertDateFromString(_ str:String) -> Int
 {
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "hh:mm:ss a"
-    let date = dateFormatter.dateFromString(str)
+    let date = dateFormatter.date(from: str)
     
     // To convert the date into an HH:mm format
     dateFormatter.dateFormat = "HH:mm"
-    let dateString = dateFormatter.stringFromDate(date!)
+    let dateString = dateFormatter.string(from: date!)
    
     return Int(dateString)!
 }

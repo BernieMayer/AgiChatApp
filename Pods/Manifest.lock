@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (3.5.1)
+  - Alamofire (4.0.1)
   - Firebase (3.17.0):
     - Firebase/Core (= 3.17.0)
   - Firebase/AdMob (3.17.0):
@@ -55,17 +55,17 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.10)
-  - NVActivityIndicatorView (2.12)
+  - NVActivityIndicatorView (3.6.1)
   - Protobuf (3.3.0)
-  - ReachabilitySwift (2.4)
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
+  - ReachabilitySwift (3)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
   - SVPullToRefresh (0.4.1)
   - SwiftLoader (0.2.5)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.0)
+  - Alamofire (~> 4.0.1)
   - Firebase (~> 3.9)
   - Firebase/AdMob
   - Firebase/Messaging
@@ -74,14 +74,14 @@ DEPENDENCIES:
   - FirebaseCore (~> 3.4)
   - FirebaseDatabase (~> 3.1)
   - FirebaseStorage (~> 1.0)
-  - NVActivityIndicatorView (~> 2.12)
-  - ReachabilitySwift (~> 2.4)
-  - SDWebImage (~> 3.8)
+  - NVActivityIndicatorView (~> 3.0)
+  - ReachabilitySwift (~> 3.0)
+  - SDWebImage (>= 3.8)
   - SVPullToRefresh
   - SwiftLoader
 
 SPEC CHECKSUMS:
-  Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
   FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
   FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
@@ -94,13 +94,13 @@ SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: 43ac87810e4961f5093024d3525bfe022f956da3
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
-  NVActivityIndicatorView: de8be03826726ad99cdfacf7fe09e88cbfeef911
+  NVActivityIndicatorView: 9f52a7f84bf5c6a798722c450fe3c198e01c56ed
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
-  ReachabilitySwift: dc7452dab85ff881904215e1a113326ad8d07beb
-  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   SwiftLoader: 12d7a6f661f5e9a2c9a72003e7dd6162f4ff0cc4
 
-PODFILE CHECKSUM: b183b3d09b9e8b037ab2d494115ed83cf5e35196
+PODFILE CHECKSUM: 32b09b93a09a8c60fd550b200829165d889bac7e
 
 COCOAPODS: 1.2.1

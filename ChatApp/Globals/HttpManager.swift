@@ -11,12 +11,19 @@ import Alamofire
 
 @objc protocol HttpManagerDelegate{
 
-    func httpResponceData(dictionary:NSMutableDictionary,manager:HttpManager)
-    optional  func httpFailed(dictionary:NSMutableDictionary,error:HttpManager)
+    func httpResponceData(_ dictionary:NSMutableDictionary,manager:HttpManager)
+    @objc optional  func httpFailed(_ dictionary:NSMutableDictionary,error:HttpManager)
 }
 
 
 class HttpManager: NSObject {
+    struct Static {
+        static var instance: HttpManager? = nil
+        static var token: Int = 0
+    }
+    private static var __once: () = {
+                Static.instance = HttpManager()
+            }()
     
     var delegate : HttpManagerDelegate?
     var showLoader:Bool = true
@@ -28,13 +35,8 @@ class HttpManager: NSObject {
 
     class var sharedInstance: HttpManager {
         get {
-            struct Static {
-                static var instance: HttpManager? = nil
-                static var token: dispatch_once_t = 0
-            }
-            dispatch_once(&Static.token, {
-                Static.instance = HttpManager()
-            })
+            
+            _ = HttpManager.__once
             return Static.instance!
         }
     }
@@ -43,10 +45,10 @@ class HttpManager: NSObject {
 
         if  (self.delegate != nil) {
             let dic:NSMutableDictionary = NSMutableDictionary()
-            dic.setObject("1", forKey: "first")
+            dic.setObject("1", forKey: "first" as NSCopying)
             //self.delegate!.httpFailed!(dic, error: self)
             
-            dic.setObject("2", forKey: "second")
+            dic.setObject("2", forKey: "second" as NSCopying)
             
             self.delegate?.httpResponceData(dic, manager: self)
         }
@@ -54,7 +56,8 @@ class HttpManager: NSObject {
 
     
     func perform() {
-        Alamofire.request(.GET, "").responseJSON { (response) in
+        //might not be fixed right
+        Alamofire.request("").responseJSON { (response) in
             let bvf = response.result.value
         }
     }
@@ -62,20 +65,21 @@ class HttpManager: NSObject {
     
     //MARK :-  SINGLE NOTIFICATION (one-to-one chat)
     //MARK :-
-    func postResponse(url:NSString ,loaderShow : Bool, dict:NSMutableDictionary , SuccessCompletion :(result:AnyObject) -> Void ,FailureCompletion :(result:AnyObject) -> Void){
+    func postResponse(_ url:NSString ,loaderShow : Bool, dict:NSMutableDictionary , SuccessCompletion :@escaping (_ result:AnyObject) -> Void ,FailureCompletion :@escaping (_ result:AnyObject) -> Void){
    
         
         let strURL : String = "\(SINGLENOTIFICATIONURL)?"
         let aby : AnyObject = dict
         
         var newUrl = NSString()
-        newUrl = "\(strURL)title=\(dict.valueForKey("title")!)&body=\(dict.valueForKey("body")!)&device_key=\(dict.valueForKey("device_key")!)"
+        newUrl = "\(strURL)title=\(dict.value(forKey: "title")!)&body=\(dict.value(forKey: "body")!)&device_key=\(dict.value(forKey: "device_key")!)" as NSString
         NSLog(newUrl as String)
         
-        Alamofire.request(.GET, strURL as String,parameters: aby as? [String : AnyObject] )
+        //might need to .GET as a parameter
+        Alamofire.request(strURL as String, parameters: aby as? [String : AnyObject] )
             .responseJSON { response in 
                 switch response.result {
-                case .Success:
+                case .success:
                     self.hideLoader()
 
                     if let JSON = response.result.value as? NSDictionary
@@ -83,19 +87,19 @@ class HttpManager: NSObject {
                         var NewDict : NSMutableDictionary = NSMutableDictionary()
                         NewDict = NSMutableDictionary(dictionary: JSON)
                         
-                        if NewDict.valueForKey("status")?.intValue == 1
+                        if (NewDict.value(forKey: "status") as AnyObject).intValue == 1
                         {
-                            SuccessCompletion(result: NewDict)
+                            SuccessCompletion(NewDict)
                             
                         }
                         else
                         {
-                            FailureCompletion(result: NewDict)
+                            FailureCompletion(NewDict)
                         }
                     }
                     
-                case .Failure(let error):
-                    FailureCompletion(result: error.localizedDescription)
+                case .failure(let error):
+                    FailureCompletion(error.localizedDescription as AnyObject)
              }
         }
     }
@@ -103,36 +107,36 @@ class HttpManager: NSObject {
     
     //MARK :-  TOPIC NOTIFICATION (group chat)
     //MARK :-
-    func postGroup(url:NSString ,loaderShow : Bool, dict:NSMutableDictionary , SuccessCompletion :(result:AnyObject) -> Void ,FailureCompletion :(result:AnyObject) -> Void){
+    func postGroup(_ url:NSString ,loaderShow : Bool, dict:NSMutableDictionary , SuccessCompletion :@escaping (_ result:AnyObject) -> Void ,FailureCompletion :@escaping (_ result:AnyObject) -> Void){
         
         let strURL : String = "\(TOPICNOTIFICATIONURL)/index_topic.php?"
         
         let aby : AnyObject = dict
-        
-        Alamofire.request(.GET, strURL as String,parameters: aby as? [String : AnyObject] )
+        //might need to add .GET
+        Alamofire.request( strURL as String,parameters: aby as? [String : AnyObject] )
             .responseJSON { response in
                 switch response.result {
-                case .Success:
+                case .success:
                     self.hideLoader()
                    if let JSON = response.result.value as? NSDictionary
                     {
                         var NewDict : NSMutableDictionary = NSMutableDictionary()
                         NewDict = NSMutableDictionary(dictionary: JSON)
                         
-                        if NewDict.valueForKey("status")?.intValue == 1
+                        if (NewDict.value(forKey: "status") as AnyObject).intValue == 1
                         {
-                            SuccessCompletion(result: NewDict)
+                            SuccessCompletion(NewDict)
                         }
                         else
                         {
-                            FailureCompletion(result: NewDict)
+                            FailureCompletion(NewDict)
                         }
                         
                     }
                     
-                case .Failure(let error):
+                case .failure(let error):
                     self.hideLoader()
-                    FailureCompletion(result: error.localizedDescription)
+                    FailureCompletion(error.localizedDescription as AnyObject)
                 }
         }
     }
@@ -141,36 +145,36 @@ class HttpManager: NSObject {
     
     //MARK :-  TOPIC Subscribe (group chat)
     //MARK :-
-    func subscribeGroupDevice(url:NSString ,loaderShow : Bool, dict:NSMutableDictionary , SuccessCompletion :(result:AnyObject) -> Void ,FailureCompletion :(result:AnyObject) -> Void){
+    func subscribeGroupDevice(_ url:NSString ,loaderShow : Bool, dict:NSMutableDictionary , SuccessCompletion :@escaping (_ result:AnyObject) -> Void ,FailureCompletion :@escaping (_ result:AnyObject) -> Void){
         
         let strURL : String = "\(SUBSCRIBEURL)"
         
         let aby : AnyObject = dict
         
-        Alamofire.request(.GET, strURL as String,parameters: aby as? [String : AnyObject] )
+        Alamofire.request(strURL as String, method: .get, parameters: aby as? [String : AnyObject] )
             .responseJSON { response in
                 switch response.result {
-                case .Success:
+                case .success:
                     self.hideLoader()
                     if let JSON = response.result.value as? NSDictionary
                     {
                         var NewDict : NSMutableDictionary = NSMutableDictionary()
                         NewDict = NSMutableDictionary(dictionary: JSON)
                         
-                        if NewDict.valueForKey("status")?.intValue == 1
+                        if (NewDict.value(forKey: "status") as AnyObject).intValue == 1
                         {
-                            SuccessCompletion(result: NewDict)
+                            SuccessCompletion(NewDict)
                         }
                         else
                         {
-                            FailureCompletion(result: NewDict)
+                            FailureCompletion(NewDict)
                         }
                         
                     }
                     
-                case .Failure(let error):
+                case .failure(let error):
                     self.hideLoader()
-                    FailureCompletion(result: error.localizedDescription)
+                    FailureCompletion(error.localizedDescription as AnyObject)
                 }
         }
     }
@@ -178,15 +182,16 @@ class HttpManager: NSObject {
 
     //MARK :-  TOPIC UNSUBSCRIBE (group chat)
     //MARK :-
-    func unSubscribeGroupDevice(url:NSString ,loaderShow : Bool, dict:NSMutableDictionary , SuccessCompletion :(result:AnyObject) -> Void ,FailureCompletion :(result:AnyObject) -> Void){
+    func unSubscribeGroupDevice(_ url:NSString ,loaderShow : Bool, dict:NSMutableDictionary , SuccessCompletion :@escaping (_ result:AnyObject) -> Void ,FailureCompletion :@escaping (_ result:AnyObject) -> Void){
         
         let strURL : String = "\(UNSUBSCRIBEURL)"
         let aby : AnyObject = dict
         
-        Alamofire.request(.GET, strURL as String,parameters: aby as? [String : AnyObject] )
+        //might not be fixed right
+        Alamofire.request(strURL as String, parameters: aby as? [String : AnyObject] )
             .responseJSON { response in
                 switch response.result {
-                case .Success:
+                case .success:
                     self.hideLoader()
                     
                     if let JSON = response.result.value as? NSDictionary
@@ -194,19 +199,19 @@ class HttpManager: NSObject {
                         var NewDict : NSMutableDictionary = NSMutableDictionary()
                         NewDict = NSMutableDictionary(dictionary: JSON)
                         
-                        if NewDict.valueForKey("status")?.intValue == 1
+                        if (NewDict.value(forKey: "status") as AnyObject).intValue == 1
                         {
-                            SuccessCompletion(result: NewDict)
+                            SuccessCompletion(NewDict)
                         }
                         else
                         {
-                            FailureCompletion(result: NewDict)
+                            FailureCompletion(NewDict)
                         }
                     }
                     
-                case .Failure(let error):
+                case .failure(let error):
                     self.hideLoader()
-                    FailureCompletion(result: error.localizedDescription)
+                    FailureCompletion(error.localizedDescription as AnyObject)
                 }
         }
     }
@@ -216,36 +221,36 @@ class HttpManager: NSObject {
     // MARK:
     // MARK: Make Null Values to Blank
     
-    func getValuesWithOutNull(dict:NSMutableDictionary) -> NSMutableDictionary {
+    func getValuesWithOutNull(_ dict:NSMutableDictionary) -> NSMutableDictionary {
         
         let dictReplaced:NSMutableDictionary = NSMutableDictionary()
-        dictReplaced.addEntriesFromDictionary(dict as [NSObject : AnyObject])
+        dictReplaced.addEntries(from: dict as! [AnyHashable: Any])
         let nul = NSNull()
         let blank:NSString = ""
         
         for val in dict {
-            let object:AnyObject = dict.valueForKey(val.key as! String)!
+            let object:AnyObject = dict.value(forKey: val.key as! String)! as AnyObject
             if object as! NSObject == nul {
-                dictReplaced.setObject(blank, forKey: val.key as! String)
+                dictReplaced.setObject(blank, forKey: val.key as! String as NSCopying)
             }
-            else if object.isKindOfClass(NSMutableDictionary){
-                dictReplaced.setObject(getValuesWithOutNull(object as! NSMutableDictionary), forKey: val.key as! String)
+            else if object.isKind(of: NSMutableDictionary.self){
+                dictReplaced.setObject(getValuesWithOutNull(object as! NSMutableDictionary), forKey: val.key as! String as NSCopying)
             }
-            else if object.isKindOfClass(NSArray)
+            else if object.isKind(of: NSArray.self)
             {
                 let array:NSMutableArray = NSMutableArray.init(array: object as! NSArray)
                 
                 for i in 0..<array.count
                     
                 {
-                    let object:AnyObject = array.objectAtIndex(i)
+                    let object:AnyObject = array.object(at: i) as AnyObject
                     
-                    if(object.isKindOfClass(NSDictionary))
+                    if(object.isKind(of: NSDictionary.self))
                     {
-                        array.replaceObjectAtIndex(i, withObject: getValuesWithOutNull(object as! NSMutableDictionary))
+                        array.replaceObject(at: i, with: getValuesWithOutNull(object as! NSMutableDictionary))
                     }
                     
-                    dictReplaced.setObject(array, forKey: val.key as! String)
+                    dictReplaced.setObject(array, forKey: val.key as! String as NSCopying)
                 }
             }
         }

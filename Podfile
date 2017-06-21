@@ -1,5 +1,14 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '9.0'
+#platform :ios, '10.3'
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['ENABLE_BITCODE'] = 'NO'
+            config.build_settings['SWIFT_VERSION'] = '3.0'
+        end
+    end
+end
 
 target 'ChatApp' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
@@ -15,10 +24,10 @@ target 'ChatApp' do
   pod 'FirebaseCore', '~> 3.4'
   pod 'Firebase/Messaging'
   pod 'SwiftLoader'
-  pod 'SDWebImage', '~> 3.8'
-  pod 'Alamofire', '~> 3.0’
-  pod 'ReachabilitySwift', '~> 2.4' 
-  pod 'NVActivityIndicatorView','~> 2.12'
+  pod 'SDWebImage', ' >= 3.8'
+  pod 'Alamofire', '~> 4.0.1’
+  pod 'ReachabilitySwift', '~> 3.0' 
+  pod 'NVActivityIndicatorView','~> 3.0'
   pod 'SVPullToRefresh'
  
 end

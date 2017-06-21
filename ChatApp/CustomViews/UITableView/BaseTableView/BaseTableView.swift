@@ -15,7 +15,7 @@ class BaseTableView: TPKeyboardAvoidingTableView {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.tableFooterView = UIView()
-        self.separatorStyle = .None
+        self.separatorStyle = .none
         self.estimatedRowHeight = 200
         self.rowHeight = UITableViewAutomaticDimension
     }

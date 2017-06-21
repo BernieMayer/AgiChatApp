@@ -9,7 +9,7 @@ import UIKit
 
 extension UIViewController {
     func hideNavigationBar()  {
-        self.navigationController?.navigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     
 }

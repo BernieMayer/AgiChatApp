@@ -11,20 +11,24 @@ import ReachabilitySwift
 
 
 class AIReachability: NSObject {
+    
+    struct Static {
+        static var onceToken: Int = 0
+        static var instance: AIReachability? = nil
+    }
    
-    private var reachability: Reachability?
+    private static var __once: () = {
+            Static.instance = AIReachability()
+            
+        }()
+   
+    fileprivate var reachability: Reachability?
     
     // MARK: - SHARED MANAGER
     class var sharedManager: AIReachability {
-        struct Static {
-            static var onceToken: dispatch_once_t = 0
-            static var instance: AIReachability? = nil
-        }
+      
         
-        dispatch_once(&Static.onceToken) {
-            Static.instance = AIReachability()
-            
-        }
+        _ = AIReachability.__once
         return Static.instance!
     }
     
@@ -34,13 +38,13 @@ class AIReachability: NSObject {
             setup()
         }
         
-        if self.reachability!.isReachable() || self.reachability!.isReachableViaWiFi() || self.reachability!.isReachableViaWWAN() {
+        if self.reachability!.isReachable || self.reachability!.isReachableViaWiFi || self.reachability!.isReachableViaWWAN {
             return true
         } else {
             
             
            let alert : UIAlertView = UIAlertView()
-            alert.addButtonWithTitle("OK")
+            alert.addButton(withTitle: "OK")
             alert.title = "ChatApp"
             alert.message = "Internet connection not available.Please check your connection and try again."
             alert.show()
@@ -50,9 +54,9 @@ class AIReachability: NSObject {
     }
 
     
-    private func setup() {
+    fileprivate func setup() {
         do {
-            self.reachability = try Reachability.reachabilityForInternetConnection()
+            self.reachability = try Reachability()
             try reachability?.startNotifier()
           } catch _ {
             
@@ -61,7 +65,7 @@ class AIReachability: NSObject {
     
     
     //MARK: - check internet is lost & come
-    func connectionWhenReachable(reachableComplitionBlock: () -> ()) {
+    func connectionWhenReachable(_ reachableComplitionBlock: @escaping () -> ()) {
         if reachability == nil {
             self.setup()
         }
@@ -71,7 +75,7 @@ class AIReachability: NSObject {
         }
     }
     
-    func connectionWhenUnReachable(unReachableComplitionBlock: () -> ()) {
+    func connectionWhenUnReachable(_ unReachableComplitionBlock: @escaping () -> ()) {
         if reachability == nil {
             self.setup()
         }

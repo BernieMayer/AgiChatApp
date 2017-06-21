@@ -46,6 +46,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>To choose a profile picture</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Allows the user's contacts to be part of this app</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

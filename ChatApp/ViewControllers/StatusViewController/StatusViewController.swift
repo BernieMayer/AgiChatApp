@@ -9,6 +9,30 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 @available(iOS 9.0, *)
 class StatusViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
@@ -29,7 +53,7 @@ class StatusViewController: BaseViewController,UITableViewDelegate,UITableViewDa
         
         // Do any additional setup after loading the view.
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         barView.backgroundColor = navigationColor
@@ -42,26 +66,26 @@ class StatusViewController: BaseViewController,UITableViewDelegate,UITableViewDa
         tblStatus.dataSource = self
         tblStatus.rowHeight = UITableViewAutomaticDimension
         tblStatus.estimatedRowHeight = 200
-        tblStatus.separatorColor = UIColor.clearColor()
+        tblStatus.separatorColor = UIColor.clear
         
         txtEditStatus.delegate = self
         txtEditStatus.text = Constants.loginFields.status
         
     }
-    override func viewWillDisappear(animated: Bool) {
-        ref.child("statuses").queryOrderedByChild("userId").queryEqualToValue(Constants.loginFields.userId).removeAllObservers() //Removing Observer
+    override func viewWillDisappear(_ animated: Bool) {
+        ref.child("statuses").queryOrdered(byChild: "userId").queryEqual(toValue: Constants.loginFields.userId).removeAllObservers() //Removing Observer
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         txtEditStatus.resignFirstResponder()
     }
     
     //MARK:- Configure database
     //MARK:-
-    func configureDatabase(handler:((Bool)->Void))
+    func configureDatabase(_ handler:@escaping ((Bool)->Void))
     {
         //calling observer for statuse to fetch snapshot of statuses of current user
-        ref.child("statuses").queryOrderedByChild("userId").queryEqualToValue(Constants.loginFields.userId).observeEventType(.Value, withBlock: { (snapshot) in
+        ref.child("statuses").queryOrdered(byChild: "userId").queryEqual(toValue: Constants.loginFields.userId).observe(.value, with: { (snapshot) in
             
             if(snapshot.exists()) //Checks whether snapshot exists or not
             {
@@ -71,18 +95,18 @@ class StatusViewController: BaseViewController,UITableViewDelegate,UITableViewDa
                 for strchildrenid in dicttemp.allKeys{
                     
                     let dict : NSMutableDictionary = NSMutableDictionary()
-                    let dicttemp1 = dicttemp.valueForKey(strchildrenid as! String) as! NSMutableDictionary
-                    dict.setObject(strchildrenid as! String, forKey: "statusId")
-                    dict.setObject(dicttemp1.object_forKeyWithValidationForClass_String("userId"), forKey: "userId")
-                    dict.setObject(dicttemp1.object_forKeyWithValidationForClass_String("status"), forKey: "status")
+                    let dicttemp1 = dicttemp.value(forKey: strchildrenid as! String) as! NSMutableDictionary
+                    dict.setObject(strchildrenid as! String, forKey: "statusId" as NSCopying)
+                    dict.setObject(dicttemp1.object_forKeyWithValidationForClass_String("userId"), forKey: "userId" as NSCopying)
+                    dict.setObject(dicttemp1.object_forKeyWithValidationForClass_String("status"), forKey: "status" as NSCopying)
                     
-                    if(self.txtEditStatus.text == dict.objectForKey("status") as? String)
+                    if(self.txtEditStatus.text == dict.object(forKey: "status") as? String)
                     {
-                        self.arrStatuses.insertObject(dict, atIndex: 0) //if add new status then it will be display on 0th index
+                        self.arrStatuses.insert(dict, at: 0) //if add new status then it will be display on 0th index
                     }
                     else
                     {
-                        self.arrStatuses.addObject(dict) //adding all statuses to array status
+                        self.arrStatuses.add(dict) //adding all statuses to array status
                     }
                     
                 }
@@ -93,42 +117,42 @@ class StatusViewController: BaseViewController,UITableViewDelegate,UITableViewDa
     
     //MARK:- On back click
     //MARK:-
-    @IBAction func btnBackClick(sender: UIButton) {
+    @IBAction func btnBackClick(_ sender: UIButton) {
         
         if(AIReachability.sharedManager.isAavailable())
         {
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
     //MARK:- On button Done Click
     //MarK:-
-    @IBAction func btnDoneClick(sender: UIButton) {
+    @IBAction func btnDoneClick(_ sender: UIButton) {
         
         // if Added new status then it will update value and push viewController
         if(txtEditStatus.text?.length > 0)
         {
             let str = txtEditStatus.text
             
-            let trimmedString = str!.stringByTrimmingCharactersInSet(
-                NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let trimmedString = str!.trimmingCharacters(
+                in: CharacterSet.whitespacesAndNewlines)
             let data = [Constants.statusField.status: trimmedString as String]
             changeStatus(data, data1: trimmedString) //Will change status
             tblStatus.reloadData()
             txtEditStatus.resignFirstResponder()
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
     //MARK:- TextField Delegate
     //MARK:-
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         textField.resignFirstResponder()
         return true
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if range.location == 0 && (string == " ") {
             return false
@@ -144,7 +168,7 @@ class StatusViewController: BaseViewController,UITableViewDelegate,UITableViewDa
     
     //MARK:- TableView Delegate
     //MARK:-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if(arrStatuses.count<=0)
         {
@@ -156,25 +180,25 @@ class StatusViewController: BaseViewController,UITableViewDelegate,UITableViewDa
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("statusListCell") as! statusListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "statusListCell") as! statusListCell
         
-        let status = arrStatuses.objectAtIndex(indexPath.row).objectForKey("status") as! String
+        let status = (arrStatuses.object(at: indexPath.row) as AnyObject).object(forKey: "status") as! String
         var status1 = txtEditStatus.text
-        status1 = status1!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        status1 = status1!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
-        let trimmedString = status1!.stringByTrimmingCharactersInSet(
-            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let trimmedString = status1!.trimmingCharacters(
+            in: CharacterSet.whitespacesAndNewlines)
         
-        if(trimmedString == arrStatuses.objectAtIndex(indexPath.row).objectForKey("status") as? String)
+        if(trimmedString == (arrStatuses.object(at: indexPath.row) as AnyObject).object(forKey: "status") as? String)
         {
             cell.lblStatuses.textColor = navigationColor
             cell.lblStatuses.text = status
         }
         else
         {
-            cell.lblStatuses.textColor = UIColor.blackColor()
+            cell.lblStatuses.textColor = UIColor.black
             cell.lblStatuses.text = status
         }
         
@@ -182,13 +206,13 @@ class StatusViewController: BaseViewController,UITableViewDelegate,UITableViewDa
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var status =  arrStatuses.objectAtIndex(indexPath.row).objectForKey("status") as! String
-        status = status.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        var status =  (arrStatuses.object(at: indexPath.row) as AnyObject).object(forKey: "status") as! String
+        status = status.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         
-        let trimmedString = status.stringByTrimmingCharactersInSet(
-            NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let trimmedString = status.trimmingCharacters(
+            in: CharacterSet.whitespacesAndNewlines)
         
         
         if(trimmedString.length > 0)
@@ -203,7 +227,7 @@ class StatusViewController: BaseViewController,UITableViewDelegate,UITableViewDa
     
     //MARK:- Row Height
     //MARK:-
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65.0
     }
     

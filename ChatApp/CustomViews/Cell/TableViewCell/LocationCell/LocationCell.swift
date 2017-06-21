@@ -22,7 +22,7 @@ class LocationCell: UITableViewCell,MKMapViewDelegate {
         
         self.backgroundColor = UIColor(customColor: 245, green: 245, blue: 245, alpha: 1)
         
-        myMapView.mapType = MKMapType.Standard //Setting type of map
+        myMapView.mapType = MKMapType.standard //Setting type of map
          self.myMapView.delegate = self
         
         let newYorkLocation = CLLocationCoordinate2DMake(current_latitude, current_longitude)  //setting location
@@ -43,13 +43,13 @@ class LocationCell: UITableViewCell,MKMapViewDelegate {
     //MARK:- MapView Delegate
     //MARK:-
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if !(annotation is MKPointAnnotation) {
             return nil
         }
         
         let annotationIdentifier = "AnnotationIdentifier"
-        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(annotationIdentifier)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
         
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
@@ -64,7 +64,7 @@ class LocationCell: UITableViewCell,MKMapViewDelegate {
         return annotationView
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

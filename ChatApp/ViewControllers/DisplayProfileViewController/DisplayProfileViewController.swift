@@ -54,15 +54,15 @@ class DisplayProfileViewController: BaseViewController ,UITableViewDelegate,UITa
         tblViewProfile.backgroundColor = UIColor(customColor: 245, green: 245, blue: 245, alpha: 1)
         
         //Registering Nib's
-        tblViewProfile.registerNib(UINib(nibName: "NumberCell", bundle: nil), forCellReuseIdentifier: "numberCell")
-        tblViewProfile.registerNib(UINib(nibName: "StatusCell", bundle: nil), forCellReuseIdentifier: "statusCell")
+        tblViewProfile.register(UINib(nibName: "NumberCell", bundle: nil), forCellReuseIdentifier: "numberCell")
+        tblViewProfile.register(UINib(nibName: "StatusCell", bundle: nil), forCellReuseIdentifier: "statusCell")
         //tblViewProfile.registerNib(UINib(nibName: "MediaCell", bundle: nil), forCellReuseIdentifier: "mediaCell")
-        tblViewProfile.registerNib(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "notificationCell")
-        tblViewProfile.registerNib(UINib(nibName: "LocationCell", bundle: nil), forCellReuseIdentifier: "locationCell")
+        tblViewProfile.register(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "notificationCell")
+        tblViewProfile.register(UINib(nibName: "LocationCell", bundle: nil), forCellReuseIdentifier: "locationCell")
     }
     
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         
@@ -89,33 +89,33 @@ class DisplayProfileViewController: BaseViewController ,UITableViewDelegate,UITa
     
     //MARK:- TableView Delegate
     //MARK:-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return 1
     }
 
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         let cell : UITableViewCell = UITableViewCell()
         
         if indexPath.section == 0{ //Setting Phone Number to Number Cell
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("numberCell", forIndexPath: indexPath) as! NumberCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "numberCell", for: indexPath) as! NumberCell
             cell.lblPhoneNumber.text = self.phoneNumber
-            cell.btnCall.addTarget(self, action: #selector(DisplayProfileViewController.dialCall(_:)), forControlEvents: .TouchUpInside)
+            cell.btnCall.addTarget(self, action: #selector(DisplayProfileViewController.dialCall(_:)), for: .touchUpInside)
             applyPlainShadow(cell.shadowView)
-            cell.btnMsg.addTarget(self, action: #selector(DisplayProfileViewController.btnMsgClick(_:)), forControlEvents: .TouchUpInside)
+            cell.btnMsg.addTarget(self, action: #selector(DisplayProfileViewController.btnMsgClick(_:)), for: .touchUpInside)
             return cell
             
         }else if indexPath.section == 1{ //Setting Status to Status Cell
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("statusCell", forIndexPath: indexPath) as! StatusCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "statusCell", for: indexPath) as! StatusCell
             cell.lblStatus.text = self.status
             applyPlainShadow(cell.shadowView)
             return cell
@@ -130,26 +130,26 @@ class DisplayProfileViewController: BaseViewController ,UITableViewDelegate,UITa
             
         else if indexPath.section == 2{ //Setting Notification Status
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("notificationCell", forIndexPath: indexPath) as! NotificationCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "notificationCell", for: indexPath) as! NotificationCell
             applyPlainShadow(cell.shadowView)
             let switch_on = UIImage(named: "switch_on") as UIImage?
             let switch_off = UIImage(named: "switch_off") as UIImage?
-            cell.btnNotificationStatus.addTarget(self, action: #selector(DisplayProfileViewController.NotificationStatus(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.btnNotificationStatus.addTarget(self, action: #selector(DisplayProfileViewController.NotificationStatus(_:)), for: UIControlEvents.touchUpInside)
             
             if notificationStaus == true {
                 
-                cell.btnNotificationStatus.setImage(switch_off, forState: UIControlState.Normal)
+                cell.btnNotificationStatus.setImage(switch_off, for: UIControlState())
                 
             }else{
                 
-                cell.btnNotificationStatus.setImage(switch_on, forState: UIControlState.Normal)
+                cell.btnNotificationStatus.setImage(switch_on, for: UIControlState())
             }
             
             return cell
             
         }else if indexPath.section == 3{  //Location Cell , for now location is being set from Location Cell class
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as! LocationCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "locationCell", for: indexPath) as! LocationCell
             applyPlainShadow(cell.shadowView)
             return cell
         }
@@ -160,7 +160,7 @@ class DisplayProfileViewController: BaseViewController ,UITableViewDelegate,UITa
     
     //MARK:- Dial button Action
     //MARK:-
-    func dialCall(sender:UIButton)
+    func dialCall(_ sender:UIButton)
     {
         let networkInfo = CTTelephonyNetworkInfo()
         let carrier = networkInfo.subscriberCellularProvider
@@ -174,7 +174,7 @@ class DisplayProfileViewController: BaseViewController ,UITableViewDelegate,UITa
             }
             else
             {
-                UIApplication.sharedApplication().openURL(NSURL(string: "tel://\(phoneNumber)")!) //dials
+                UIApplication.shared.openURL(URL(string: "tel://\(phoneNumber)")!) //dials
             }
         }
         else {
@@ -186,14 +186,14 @@ class DisplayProfileViewController: BaseViewController ,UITableViewDelegate,UITa
     
     //MARK:- Message button action
     //MARK:-
-    func btnMsgClick(sender:UIButton)
+    func btnMsgClick(_ sender:UIButton)
     {
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {//Number
             return 75
         }else if indexPath.section == 1{ //Status
@@ -211,7 +211,7 @@ class DisplayProfileViewController: BaseViewController ,UITableViewDelegate,UITa
     }
     
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 6.0
         }
@@ -219,53 +219,53 @@ class DisplayProfileViewController: BaseViewController ,UITableViewDelegate,UITa
     }
     
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
     }
     
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView(frame: CGRectZero)
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView(frame: CGRect.zero)
     }
     
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView(frame: CGRectZero)
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView(frame: CGRect.zero)
     }
     
     //MARK:- GoBack Button Action
     //MARK:-
-    @IBAction func goBack(sender: UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func goBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK:- Notification Status
     //MARK:-
-    func NotificationStatus(sender: UIButton)  {
+    func NotificationStatus(_ sender: UIButton)  {
         
         notificationStaus = !notificationStaus
-        tblViewProfile.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 2)], withRowAnimation: UITableViewRowAnimation.None)
+        tblViewProfile.reloadRows(at: [IndexPath(row: 0, section: 2)], with: UITableViewRowAnimation.none)
     }
     
     
     //MARK:- Getting User Detail
     //MARK:-
-    func retrieveDataFromProfile(userId : String)
+    func retrieveDataFromProfile(_ userId : String)
     {
         
         let refDetail = ref.child("users").child("\(userId)")
-         refDetail.observeSingleEventOfType(.Value, withBlock: { (snapshot) -> Void in //fetching data from snapshot
+         refDetail.observeSingleEvent(of: .value, with: { (snapshot) -> Void in //fetching data from snapshot
             
             if(snapshot.exists()) //check whether snapshot exists or not
             {
-                self.phoneNumber = snapshot.value?.valueForKey("phoneNo") as! String //stores phone number
-                self.status = snapshot.value?.valueForKey("status") as! String //stores status
+                self.phoneNumber = (snapshot.value as AnyObject).value(forKey: "phoneNo") as! String //stores phone number
+                self.status = (snapshot.value as AnyObject).value(forKey: "status") as! String //stores status
                 self.lblUserName.text = self.userName //Stores UserName
-                self.proPic = snapshot.value?.valueForKey("profilePic") as! String //Stores Profile pic url (string)
+                self.proPic = (snapshot.value as AnyObject).value(forKey: "profilePic") as! String //Stores Profile pic url (string)
                 
                 if(self.proPic != "null") //Check whether variable contains string or not
                 {
-                    self.profileImage.sd_setImageWithURL(NSURL(string: self.proPic),placeholderImage: UIImage(named: "default_profile")) //displays using url
+                    self.profileImage.sd_setImage(with: URL(string: self.proPic),placeholderImage: UIImage(named: "default_profile")) //displays using url
                 }
                 else
                 {

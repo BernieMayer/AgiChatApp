@@ -11,7 +11,7 @@ import UIKit
 
 class UdTextField: UITextField {
 
-    override func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
        
         //TODO: Had to change this in order to get the application to run
         /*
@@ -40,7 +40,7 @@ class UdTextField: UITextField {
         
        
         
-        self.borderStyle = UITextBorderStyle.None
+        self.borderStyle = UITextBorderStyle.none
         
         
         

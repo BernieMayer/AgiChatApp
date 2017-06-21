@@ -26,10 +26,10 @@ class SettingViewController: BaseViewController,UITableViewDelegate,UITableViewD
         arrImageIconName = NSMutableArray(objects: "help","name","status_Edit","account","chats_calls","notification","contacts") //Seting List Image Icon Array
 
         //Registering Nib
-       tblSetting.registerNib(UINib(nibName: "SettingCustomCell", bundle: nil), forCellReuseIdentifier: "cell")
+       tblSetting.register(UINib(nibName: "SettingCustomCell", bundle: nil), forCellReuseIdentifier: "cell")
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         barView.backgroundColor = navigationColor
         hideNavigationBar()
@@ -42,32 +42,32 @@ class SettingViewController: BaseViewController,UITableViewDelegate,UITableViewD
     }
     
     
-    @IBAction func btnBack(sender: UIButton) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func btnBack(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
         
     }
 
     
     // MARK: - TableView Delegates & DataSource
     //MARK:-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         
         return arrSettingName.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        tableView.separatorStyle = .None
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        tableView.separatorStyle = .none
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! SettingCustomCell
-        cell.selectionStyle = .None
-        cell.imgSettingIcon.image = UIImage(named: arrImageIconName.objectAtIndex(indexPath.row) as! String)
-        cell.lblSettingName.text = arrSettingName.objectAtIndex(indexPath.row) as? String
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SettingCustomCell
+        cell.selectionStyle = .none
+        cell.imgSettingIcon.image = UIImage(named: arrImageIconName.object(at: indexPath.row) as! String)
+        cell.lblSettingName.text = arrSettingName.object(at: indexPath.row) as? String
         return cell
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -79,7 +79,7 @@ class SettingViewController: BaseViewController,UITableViewDelegate,UITableViewD
                 
             }else if indexPath.row == 1 { //Edit Profile
                 
-                let mainVC = storyboard.instantiateViewControllerWithIdentifier("UpdateProfileViewController") as! UpdateProfileViewController
+                let mainVC = storyboard.instantiateViewController(withIdentifier: "UpdateProfileViewController") as! UpdateProfileViewController
                 
                 mainVC.userId = Constants.loginFields.userId
                 mainVC.fName = Constants.loginFields.name
@@ -96,7 +96,7 @@ class SettingViewController: BaseViewController,UITableViewDelegate,UITableViewD
                 
             }else if indexPath.row == 2 { //Status
                 
-                let statusVC  = storyboard.instantiateViewControllerWithIdentifier("StatusViewController") as! StatusViewController
+                let statusVC  = storyboard.instantiateViewController(withIdentifier: "StatusViewController") as! StatusViewController
                 self.navigationController?.pushViewController(statusVC, animated: true)
                 
             }else if indexPath.row == 3 { //Account
@@ -114,17 +114,17 @@ class SettingViewController: BaseViewController,UITableViewDelegate,UITableViewD
                 
             }else if indexPath.row == 6 { //Contacts
                 
-            let contactVC = storyboard.instantiateViewControllerWithIdentifier("ContactViewController") as! ContactViewController
+            let contactVC = storyboard.instantiateViewController(withIdentifier: "ContactViewController") as! ContactViewController
               contactVC.isComingFrom = "Settings"
               contactVC.arrFilteredContacts = UserDefaults.sharedInstance.GetArrayFromUserDefault(allContacts)
               self.navigationController?.pushViewController(contactVC, animated: true)
             }
-            self.tableView(tableView, didDeselectRowAtIndexPath: indexPath)
+            self.tableView(tableView, didDeselectRowAt: indexPath)
         }
     }
   
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath)
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath)
     {
         
 

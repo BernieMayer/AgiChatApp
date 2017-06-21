@@ -10,6 +10,30 @@ import UIKit
 import DigitsKit
 import Firebase
 import FirebaseAuth
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 @available(iOS 9.0, *)
 class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerViewDelegate,UITextFieldDelegate {
@@ -26,8 +50,8 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet var txtNumber: UITextField!
     
     //var countries: [String] = []
-    private var countries: [Country] = []
-    private var _refHandle: FIRDatabaseHandle!
+    fileprivate var countries: [Country] = []
+    fileprivate var _refHandle: FIRDatabaseHandle!
     
     var ref: FIRDatabaseReference!
     
@@ -45,21 +69,21 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
         txtCountry.inputView = pickerView
         //self.addDoneButtonOnKeyboard()
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         barView.backgroundColor = navigationColor
         hideNavigationBar()
     }
     
     //MARK:- TextField Delegate
     //MARK:-
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         textField.resignFirstResponder()
         return true
     }
     
     @available(iOS 9.0, *)
-    @IBAction func goToVerification(sender: UIButton) {
+    @IBAction func goToVerification(_ sender: UIButton) {
         txtNumber.resignFirstResponder()
         
         //clearing stored references
@@ -93,12 +117,12 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
                 let email = txtNumber.text! + "@agile.com" //For Sigining in to firebase Auth
                 let password = "123456" //Password for every User is prefixed/same
                 
-                FIRAuth.auth()?.signInWithEmail(email, password: password) { (user, error) in //Will Log in to Firebase if user exists
+                FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in //Will Log in to Firebase if user exists
                     if let error = error {
                         
                         //IF no number logged in with the number then redirects to REGISTER USER
                         //Creating new user in firebase
-                        FIRAuth.auth()?.createUserWithEmail(email, password: password) { (user, error) in //If User don't exists, it will create new user
+                        FIRAuth.auth()?.createUser(withEmail: email, password: password) { (user, error) in //If User don't exists, it will create new user
                             if let error = error {
                              
                                 return
@@ -110,12 +134,12 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
                                 
                                 //Configuring Digit For Login Verification code
                                 let digits = Digits.sharedInstance()
-                                let configuration = DGTAuthenticationConfiguration(accountFields: .DefaultOptionMask)
-                                configuration.phoneNumber = self.lblCountryCode.text! + self.txtNumber.text!
-                                digits.authenticateWithViewController(nil, configuration: configuration) { session, error in
+                                let configuration = DGTAuthenticationConfiguration(accountFields: .defaultOptionMask)
+                                configuration?.phoneNumber = self.lblCountryCode.text! + self.txtNumber.text!
+                                digits.authenticate(with: nil, configuration: configuration!) { session, error in
                                     if((error) != nil)
                                     {
-                                        self.navigationController?.popViewControllerAnimated(true)
+                                        self.navigationController?.popViewController(animated: true)
                                         
                                     }
                                     else
@@ -129,17 +153,17 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
                                         postReg1Ref.setValue(mData)
                                         
                                         let regID = postReg1Ref.key
-                                        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "signedIn")
+                                        Foundation.UserDefaults.standard.set(true, forKey: "signedIn")
                                         UserDefaults.sharedInstance.SetNSUserDefaultValues(regID, value: currentUserId)
                                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                        let updateVC = storyboard.instantiateViewControllerWithIdentifier("UpdateProfileViewController") as! UpdateProfileViewController
+                                        let updateVC = storyboard.instantiateViewController(withIdentifier: "UpdateProfileViewController") as! UpdateProfileViewController
                                         
                                         let valMobile = self.lblCountryCode.text! + self.txtNumber.text!
                                         updateVC.isFrom = "Register"
                                         updateVC.logMobile = self.txtNumber.text! + "@agile.com"
                                         updateVC.regId = regID
-                                        NSUserDefaults.standardUserDefaults().setObject(valMobile, forKey: "\(mobileKey)")
-                                        NSUserDefaults.standardUserDefaults().synchronize()
+                                        Foundation.UserDefaults.standard.set(valMobile, forKey: "\(mobileKey)")
+                                        Foundation.UserDefaults.standard.synchronize()
                                         gettingAllData({ () in
                                             self.navigationController?.pushViewController(updateVC, animated: true)
                                         })
@@ -159,19 +183,19 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let valMobile = self.lblCountryCode.text! + self.txtNumber.text!
                                 let digits = Digits.sharedInstance()
-                                let configuration = DGTAuthenticationConfiguration(accountFields: .DefaultOptionMask)
-                                configuration.phoneNumber = self.lblCountryCode.text! + self.txtNumber.text!
+                                let configuration = DGTAuthenticationConfiguration(accountFields: .defaultOptionMask)
+                                configuration?.phoneNumber = self.lblCountryCode.text! + self.txtNumber.text!
                                 
                                 if(self.txtNumber.text == "8141531321" || self.txtNumber.text == "7990943968")
                                 {
-                                    NSUserDefaults.standardUserDefaults().setObject(valMobile, forKey: "\(mobileKey)")
-                                    NSUserDefaults.standardUserDefaults().synchronize()
+                                    Foundation.UserDefaults.standard.set(valMobile, forKey: "\(mobileKey)")
+                                    Foundation.UserDefaults.standard.synchronize()
                                     
                                     self.signedIn(user!)//Signin FIrebase
                                     
                                     //Getting all contacts and user data
                                     gettingAllData({ () in
-                                        let mainVC = storyboard.instantiateViewControllerWithIdentifier("TabViewController") as! TabViewController
+                                        let mainVC = storyboard.instantiateViewController(withIdentifier: "TabViewController") as! TabViewController
                                         let navigationController = UINavigationController(rootViewController: mainVC)
                                         self.appDelegate!.window?.rootViewController = navigationController
                                     })
@@ -179,20 +203,20 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
                                 }
                                 else
                                 {
-                                    digits.authenticateWithViewController(nil, configuration: configuration) { session, error in
+                                    digits.authenticate(with: nil, configuration: configuration!) { session, error in
                                         if((error) != nil)
                                         {
-                                            self.navigationController?.popViewControllerAnimated(true)
+                                            self.navigationController?.popViewController(animated: true)
                                         }
                                         else
                                         {
-                                            NSUserDefaults.standardUserDefaults().setObject(valMobile, forKey: "\(mobileKey)")
-                                            NSUserDefaults.standardUserDefaults().synchronize()
+                                            Foundation.UserDefaults.standard.set(valMobile, forKey: "\(mobileKey)")
+                                            Foundation.UserDefaults.standard.synchronize()
                                             self.signedIn(user!)
                                             
                                             //Getting all contacts and user data
                                             gettingAllData({ () in
-                                                let mainVC = storyboard.instantiateViewControllerWithIdentifier("TabViewController") as! TabViewController
+                                                let mainVC = storyboard.instantiateViewController(withIdentifier: "TabViewController") as! TabViewController
                                                 let navigationController = UINavigationController(rootViewController: mainVC)
                                                 self.appDelegate!.window?.rootViewController = navigationController
                                             })
@@ -210,43 +234,43 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
     
     //MARK:- Getting Current User Details
     //MARK:-
-    func getCurrentUser1(phoneNo : String,handler:((Bool)->Void))
+    func getCurrentUser1(_ phoneNo : String,handler:@escaping ((Bool)->Void))
     {
         
         //Getting Current User Data
         ref = FIRDatabase.database().reference() //Firebase database reference
         
-        ref.child("users").queryOrderedByChild("phoneNo").queryEqualToValue(phoneNo).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+        ref.child("users").queryOrdered(byChild: "phoneNo").queryEqual(toValue: phoneNo).observeSingleEvent(of: .value, with: { (snapshot) in
             
             if(snapshot.exists())
             {
                 let dicttempUser = snapshot.valueInExportFormat() as! NSMutableDictionary
                 for strchildrenid in dicttempUser.allKeys{
                     
-                    var dicttemp = dicttempUser.valueForKey(strchildrenid as! String)
+                    var dicttemp = dicttempUser.value(forKey: strchildrenid as! String)
                     Constants.loginFields.userId = strchildrenid as! String
                     UserDefaults.sharedInstance.RemoveKeyUserFefault(currentUserId) //Removing Current userId from user defaults old value
                     UserDefaults.sharedInstance.SetNSUserDefaultValues(currentUserId, value: Constants.loginFields.userId) //Storing Current userId in user defaults
                     
                     
-                    if(NSUserDefaults.standardUserDefaults().objectForKey("device_key") != nil) // Check for not nil
+                    if(Foundation.UserDefaults.standard.object(forKey: "device_key") != nil) // Check for not nil
                     {
-                        let refreshedToken = NSUserDefaults.standardUserDefaults().objectForKey("device_key") as! String
+                        let refreshedToken = Foundation.UserDefaults.standard.object(forKey: "device_key") as! String
                         self.ref.child("users").child(Constants.loginFields.userId).updateChildValues(["deviceToken":refreshedToken]) //updating device token of current user
                     }
                     
                     //Storing Details in Contants
-                    Constants.loginFields.name = (dicttemp!.valueForKey("firstName"))! as! String
-                    Constants.loginFields.lastName = (dicttemp!.valueForKey("lastName"))! as! String
-                    Constants.loginFields.phoneNo = (dicttemp!.valueForKey("phoneNo"))! as! String
-                    Constants.loginFields.email = (dicttemp!.valueForKey("email"))! as! String
-                    Constants.loginFields.status = (dicttemp!.valueForKey("status"))! as! String
-                    Constants.loginFields.imageUrl = (dicttemp!.valueForKey("profilePic"))! as! String
-                    Constants.loginFields.deviceToken = (dicttemp!.valueForKey("deviceToken"))! as! String
-                    Constants.loginFields.day = (dicttemp!.valueForKey("date"))! as! String
-                    Constants.loginFields.month = (dicttemp!.valueForKey("month"))! as! String
-                    Constants.loginFields.year = (dicttemp!.valueForKey("year"))! as! String
-                    Constants.loginFields.gender = (dicttemp!.valueForKey("gender"))! as! String
+                    Constants.loginFields.name = ((dicttemp! as AnyObject).value(forKey: "firstName"))! as! String
+                    Constants.loginFields.lastName = ((dicttemp! as AnyObject).value(forKey: "lastName"))! as! String
+                    Constants.loginFields.phoneNo = ((dicttemp! as AnyObject).value(forKey: "phoneNo"))! as! String
+                    Constants.loginFields.email = ((dicttemp! as AnyObject).value(forKey: "email"))! as! String
+                    Constants.loginFields.status = ((dicttemp! as AnyObject).value(forKey: "status"))! as! String
+                    Constants.loginFields.imageUrl = ((dicttemp! as AnyObject).value(forKey: "profilePic"))! as! String
+                    Constants.loginFields.deviceToken = ((dicttemp! as AnyObject).value(forKey: "deviceToken"))! as! String
+                    Constants.loginFields.day = ((dicttemp! as AnyObject).value(forKey: "date"))! as! String
+                    Constants.loginFields.month = ((dicttemp! as AnyObject).value(forKey: "month"))! as! String
+                    Constants.loginFields.year = ((dicttemp! as AnyObject).value(forKey: "year"))! as! String
+                    Constants.loginFields.gender = ((dicttemp! as AnyObject).value(forKey: "gender"))! as! String
                     
                    //Storing Details in User Defaults
                     UserDefaults.sharedInstance.SetNSUserDefaultValues(fName, value: Constants.loginFields.name)
@@ -273,18 +297,18 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
                 postReg1Ref.setValue(mData)
                 
                 let regID = postReg1Ref.key
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "signedIn")
+                Foundation.UserDefaults.standard.set(true, forKey: "signedIn")
                 UserDefaults.sharedInstance.SetNSUserDefaultValues(currentUserId, value: regID)
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let updateVC = storyboard.instantiateViewControllerWithIdentifier("UpdateProfileViewController") as! UpdateProfileViewController
+                let updateVC = storyboard.instantiateViewController(withIdentifier: "UpdateProfileViewController") as! UpdateProfileViewController
                 
                 let valMobile = self.lblCountryCode.text! + self.txtNumber.text!
                 updateVC.isFrom = "Register"
                 updateVC.logMobile = self.txtNumber.text! + "@agile.com" //User name or email to be created with
                 updateVC.regId = regID
                 HideLoader()
-                NSUserDefaults.standardUserDefaults().setObject(valMobile, forKey: "\(mobileKey)")
-                NSUserDefaults.standardUserDefaults().synchronize()
+                Foundation.UserDefaults.standard.set(valMobile, forKey: "\(mobileKey)")
+                Foundation.UserDefaults.standard.synchronize()
                 self.navigationController?.pushViewController(updateVC, animated: true)
             }
         })
@@ -294,12 +318,12 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
     
     //MARK:- Method for sign in to firebase
     //MARK:-
-    func signedIn(user: FIRUser?) {
+    func signedIn(_ user: FIRUser?) {
         MeasurementHelper.sendLoginEvent()
-        AppState.sharedInstance.photoUrl = user?.photoURL
+        AppState.sharedInstance.photoUrl = user?.photoURL as? URL // TODO: NOTE fix this later
         AppState.sharedInstance.signedIn = true
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "signedIn")
-        NSNotificationCenter.defaultCenter().postNotificationName(Constants.NotificationKeys.SignedIn, object: nil, userInfo: nil)
+        Foundation.UserDefaults.standard.set(true, forKey: "signedIn")
+        NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.SignedIn), object: nil, userInfo: nil)
     }
 
 
@@ -313,15 +337,15 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
     //MARK:-
     func pickerViewConfig(){
         let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.Default
-        toolBar.tintColor = UIColor.blackColor()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.tintColor = UIColor.black
         toolBar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(LoginViewController.donePicker(_:)))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(LoginViewController.canclePicker(_:)))
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(LoginViewController.donePicker(_:)))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(LoginViewController.canclePicker(_:)))
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        toolBar.userInteractionEnabled = true
+        toolBar.isUserInteractionEnabled = true
         txtCountry.inputAccessoryView = toolBar
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.handleTap))
@@ -331,7 +355,7 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
     
     //MARK:- Picker Done Action
     //MARK:-
-    func donePicker(btn: UIBarButtonItem)
+    func donePicker(_ btn: UIBarButtonItem)
     {
         
         if tempCountryName == ""
@@ -340,7 +364,7 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
             tempCountryName = country.name
             
             if country.phoneExtension != nil {
-                let str = "+".stringByAppendingString(country.phoneExtension!)
+                let str = "+" + country.phoneExtension!
                 tempCountryCode = str
             }
         }
@@ -352,53 +376,53 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
     
     //MARK:- Picker Cancel Action
     //MARK:-
-    func canclePicker(btn: UIBarButtonItem){
+    func canclePicker(_ btn: UIBarButtonItem){
         self.view.endEditing(true)
         
     }
     
     //MARK:-  UIPickerViewDataSource, UIPickerViewDelegate
     //MARK:-
-    private func setCountries() {
+    fileprivate func setCountries() {
         countries = Countries.getAllCountries()
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return countries.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let country = countries[row]
         return country.name
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let country = countries[row]
         
         //txtCountry.text =
         tempCountryName = country.name
         
         if country.phoneExtension != nil {
-            let str = "+".stringByAppendingString(country.phoneExtension!)
+            let str = "+" + country.phoneExtension!
             tempCountryCode = str
         }
     }
     
 
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool{
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool{
         
         return true
     }
     
-    func textFieldDidBeginEditing(textField: UITextField){
+    func textFieldDidBeginEditing(_ textField: UITextField){
         
     }
     
-    func textFieldDidEndEditing(textField: UITextField){
+    func textFieldDidEndEditing(_ textField: UITextField){
         
     }
     
@@ -413,7 +437,7 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
     //MARK:- Configure text
     //MARK:-
     func configText()  {
-        var arrPhone = txtMobileNumber.text?.componentsSeparatedByString(" ")
+        var arrPhone = txtMobileNumber.text?.components(separatedBy: " ")
         
         if arrPhone?.count > 1 {
             tempPhoneNumber = arrPhone![1]
@@ -435,9 +459,9 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
     
     //MARK:- Label hidden
     //MARK:-
-    func labelHidden(status :Bool )  {
-        lblCountryCode.hidden = status
-        lblCountryCode.textColor = UIColor.blackColor()
+    func labelHidden(_ status :Bool )  {
+        lblCountryCode.isHidden = status
+        lblCountryCode.textColor = UIColor.black
     }
     
     
@@ -452,11 +476,11 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
             Digits.sharedInstance().logOut()
             try firebaseAuth?.signOut()
             AppState.sharedInstance.signedIn = false
-            NSUserDefaults.standardUserDefaults().removeObjectForKey("mobile")
-            NSUserDefaults.standardUserDefaults().setBool(false, forKey: "signedIn")
+            Foundation.UserDefaults.standard.removeObject(forKey: "mobile")
+            Foundation.UserDefaults.standard.set(false, forKey: "signedIn")
             UserDefaults.sharedInstance.RemoveKeyUserFefault(allContacts)
             UserDefaults.sharedInstance.RemoveKeyUserFefault(currentUserId)
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
             
         } catch let signOutError as NSError {
             
@@ -465,6 +489,6 @@ class LoginViewController: BaseViewController, UIPickerViewDataSource, UIPickerV
             
             // Catch any other errors
         }
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }

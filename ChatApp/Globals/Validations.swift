@@ -9,7 +9,7 @@
 import Foundation
 
 
-func isGivenEmailValidForString(strEmail:String) -> Bool{
+func isGivenEmailValidForString(_ strEmail:String) -> Bool{
     /*
      validate email address using string
      */
@@ -19,13 +19,13 @@ func isGivenEmailValidForString(strEmail:String) -> Bool{
     let emailTest:NSPredicate = NSPredicate(format: "SELF MATCHES %@", stricterFilterString)
     
     //return true if email address is valid
-    let boolToReturn:Bool = emailTest.evaluateWithObject(strEmail as String)
+    let boolToReturn:Bool = emailTest.evaluate(with: strEmail as String)
     
     return boolToReturn;
 }
 
 
-func isGivenPhoneNumberValidForString(strPhone:String) -> Bool{
+func isGivenPhoneNumberValidForString(_ strPhone:String) -> Bool{
     /*
      validate phone number using string
      */
@@ -36,7 +36,7 @@ func isGivenPhoneNumberValidForString(strPhone:String) -> Bool{
     let phone:NSPredicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
     
     //return true if email address is valid
-    let boolToReturn:Bool = phone.evaluateWithObject(strPhone as String)
+    let boolToReturn:Bool = phone.evaluate(with: strPhone as String)
     
     return boolToReturn;
 }

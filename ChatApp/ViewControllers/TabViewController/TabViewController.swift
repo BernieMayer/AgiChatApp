@@ -1,4 +1,4 @@
-
+    
 //
 //  TabViewController.swift
 //  ChatApp
@@ -859,7 +859,7 @@ class TabViewController: BaseViewController, UIScrollViewDelegate,UITableViewDel
             else if(btnContact == true)
             {
                 gettingAllData({ () in
-                    self.arrFilteredContacts.removeAllObjects() //= NSMutableArray()
+                    //self.arrFilteredContacts.removeAllObjects() //= NSMutableArray()
                     self.arrFilteredContacts = UserDefaults.sharedInstance.GetArrayFromUserDefault(allContacts)
                     self.tabContact.reloadData()
                 })

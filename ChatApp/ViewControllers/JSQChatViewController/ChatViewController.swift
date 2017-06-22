@@ -22,7 +22,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var batchMessages = true
     //Setting bubbles color
     let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.white)
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor(red: 205/255, green: 137/255, blue: 244/255, alpha: 1.0))
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor(red: 29/255, green: 103/255, blue: 241/255, alpha: 1.0))
+    //var navigationColor:UIColor = UIColor(customColor: 29, green: 103, blue: 241, alpha: 1.0);
     var messages = [Message]()
     
     //VARIABLE FOR FIREBASE
@@ -422,17 +423,23 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
  */
     //Note: This code is based on the above snipped and has been updated for iOS
     //since it was made for android
-    func sendNotifactionToUser(_ user:String, message:String)
+    func sendNotifactionToUser( user:String, message:String)
     {
+        
         
         let ref:FIRDatabaseReference!
         ref = FIRDatabase.database().reference()
         
         let notifacations = ref.child("notificationRequests")
         
-        let notifacation = NSDictionary();
-        notifacation.setValue(user, forKey: "username")
-        notifacation.setValue(message, forKey: "message")
+        
+     
+        let notifacation: NSDictionary = [
+            "username" : user,
+            "message"  : message,
+        ]
+        
+    
         
         notifacations.childByAutoId().setValue(notifacation)
         //notifacations.setValue(notifacation) //might need to be changed
@@ -530,6 +537,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         else
         {
+            sendNotifactionToUser(user: userId, message: "New Message!!")
             let data = [Constants.MessageFields.text: text as String]
             self.sendMessage(data,text: text)
             self.finishSendingMessage(animated: false)
@@ -654,6 +662,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         else
         {
+            sendNotifactionToUser  (user: "test", message: "New Message!!")
             ref.child("chat").child(newTopicChatID).childByAutoId().setValue(mdata)
             let dict : NSMutableDictionary = NSMutableDictionary()
             dict.setObject(userName, forKey: "title" as NSCopying)
@@ -662,7 +671,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             
             
             //Let the user know they have a new message
-            sendNotifactionToUser(userId, message: "New Message!!")
+            
             
             HttpManager.sharedInstance.postResponse("", loaderShow: false, dict: dict, SuccessCompletion: { (result) in
                 NSLog("true")

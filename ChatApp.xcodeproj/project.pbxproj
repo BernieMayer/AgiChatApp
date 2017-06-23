@@ -379,7 +379,7 @@
 		F26FDC161DD1894800E1173A /* JSQMessagesTypingIndicatorFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQMessagesTypingIndicatorFooterView.m; sourceTree = "<group>"; };
 		F26FDC171DD1894800E1173A /* JSQMessagesTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSQMessagesTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		F26FDC461DD189C200E1173A /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		F2E35F661D1BDC6E005A5041 /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2E35F661D1BDC6E005A5041 /* AGiChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AGiChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E35F691D1BDC6E005A5041 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2E35F6E1D1BDC6F005A5041 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F2E35F701D1BDC6F005A5041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1115,7 +1115,7 @@
 		F2E35F671D1BDC6E005A5041 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F2E35F661D1BDC6E005A5041 /* ChatApp.app */,
+				F2E35F661D1BDC6E005A5041 /* AGiChatApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1167,9 +1167,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		F2E35F651D1BDC6E005A5041 /* ChatApp */ = {
+		F2E35F651D1BDC6E005A5041 /* AGiChatApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F2E35F781D1BDC6F005A5041 /* Build configuration list for PBXNativeTarget "ChatApp" */;
+			buildConfigurationList = F2E35F781D1BDC6F005A5041 /* Build configuration list for PBXNativeTarget "AGiChatApp" */;
 			buildPhases = (
 				CD4A3681528BEEF66118B819 /* [CP] Check Pods Manifest.lock */,
 				F2E35F621D1BDC6E005A5041 /* Sources */,
@@ -1185,9 +1185,9 @@
 			);
 			dependencies = (
 			);
-			name = ChatApp;
+			name = AGiChatApp;
 			productName = ChatApp;
-			productReference = F2E35F661D1BDC6E005A5041 /* ChatApp.app */;
+			productReference = F2E35F661D1BDC6E005A5041 /* AGiChatApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1232,7 +1232,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F2E35F651D1BDC6E005A5041 /* ChatApp */,
+				F2E35F651D1BDC6E005A5041 /* AGiChatApp */,
 			);
 		};
 /* End PBXProject section */
@@ -1651,7 +1651,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F2E35F781D1BDC6F005A5041 /* Build configuration list for PBXNativeTarget "ChatApp" */ = {
+		F2E35F781D1BDC6F005A5041 /* Build configuration list for PBXNativeTarget "AGiChatApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F2E35F791D1BDC6F005A5041 /* Debug */,

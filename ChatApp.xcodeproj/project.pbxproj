@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7C291CA81EF9C5210049CE21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C291CA71EF9C5210049CE21 /* GoogleService-Info.plist */; };
+		7C2BB8591EFCA90700572776 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2BB8581EFCA90700572776 /* UserNotifications.framework */; };
 		7C714E771EF84B1A0023499B /* GoogleMobileAds.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C714E761EF84B1A0023499B /* GoogleMobileAds.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7C714E7D1EF859D20023499B /* ChatApp-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = F2E35F971D1C016A005A5041 /* ChatApp-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7C714E7E1EF85B500023499B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C714E691EF84A7B0023499B /* GoogleMobileAds.framework */; };
@@ -158,10 +159,27 @@
 		F2E35F741D1BDC6F005A5041 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2E35F721D1BDC6F005A5041 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		7C2BB8691EFD735400572776 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0E90D570C9BA3B238032E4C1 /* Pods-ChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.release.xcconfig"; sourceTree = "<group>"; };
 		321A2E0B80BEA268CFF7EDDD /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
 		7C291CA71EF9C5210049CE21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7C2BB8581EFCA90700572776 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		7C2BB8601EFD735400572776 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		7C2BB8621EFD735400572776 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C2BB86A1EFD749A00572776 /* ChatApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatApp.entitlements; sourceTree = "<group>"; };
 		7C714E691EF84A7B0023499B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks/GoogleMobileAds.framework"; sourceTree = "<group>"; };
 		7C714E761EF84B1A0023499B /* GoogleMobileAds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GoogleMobileAds.h; path = "../Pods/Google-Mobile-Ads-SDK/Frameworks/frameworks/GoogleMobileAds.framework/Versions/A/Headers/GoogleMobileAds.h"; sourceTree = "<group>"; };
 		7C714E7F1EF85B9F0023499B /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/ChatApp-bwyqrdccsgpqgcgcahdqndrutsls/Build/Products/Debug-iphonesimulator/SDWebImage/SDWebImage.framework"; sourceTree = "<group>"; };
@@ -361,7 +379,7 @@
 		F26FDC161DD1894800E1173A /* JSQMessagesTypingIndicatorFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQMessagesTypingIndicatorFooterView.m; sourceTree = "<group>"; };
 		F26FDC171DD1894800E1173A /* JSQMessagesTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSQMessagesTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
 		F26FDC461DD189C200E1173A /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
-		F2E35F661D1BDC6E005A5041 /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2E35F661D1BDC6E005A5041 /* AGiChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AGiChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E35F691D1BDC6E005A5041 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2E35F6E1D1BDC6F005A5041 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F2E35F701D1BDC6F005A5041 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -375,6 +393,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C2BB8591EFCA90700572776 /* UserNotifications.framework in Frameworks */,
 				7C714E801EF85B9F0023499B /* SDWebImage.framework in Frameworks */,
 				7C714E7E1EF85B500023499B /* GoogleMobileAds.framework in Frameworks */,
 				84518ACE1E01450500F9CEFC /* MessageUI.framework in Frameworks */,
@@ -394,6 +413,7 @@
 		49EBEDECD9F3250F9AA73453 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7C2BB8581EFCA90700572776 /* UserNotifications.framework */,
 				7C714E7F1EF85B9F0023499B /* SDWebImage.framework */,
 				84518ACD1E01450500F9CEFC /* MessageUI.framework */,
 				84C609621D9CD9EE00BC60C5 /* ContactsUI.framework */,
@@ -401,6 +421,15 @@
 				AAB46E71316A510018257D43 /* Pods_ChatApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7C2BB85F1EFD735400572776 /* AGiNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				7C2BB8601EFD735400572776 /* NotificationService.swift */,
+				7C2BB8621EFD735400572776 /* Info.plist */,
+			);
+			path = AGiNotifications;
 			sourceTree = "<group>";
 		};
 		84018E3B1DB1F17300FEC6B2 /* SwiftLoader */ = {
@@ -1076,6 +1105,7 @@
 				7C714E811EF85BD50023499B /* UIImageView+WebCache.h */,
 				7C714E691EF84A7B0023499B /* GoogleMobileAds.framework */,
 				F2E35F681D1BDC6E005A5041 /* ChatApp */,
+				7C2BB85F1EFD735400572776 /* AGiNotifications */,
 				F2E35F671D1BDC6E005A5041 /* Products */,
 				9247893066D0C196D9CE455D /* Pods */,
 				49EBEDECD9F3250F9AA73453 /* Frameworks */,
@@ -1085,7 +1115,7 @@
 		F2E35F671D1BDC6E005A5041 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F2E35F661D1BDC6E005A5041 /* ChatApp.app */,
+				F2E35F661D1BDC6E005A5041 /* AGiChatApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1093,6 +1123,7 @@
 		F2E35F681D1BDC6E005A5041 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
+				7C2BB86A1EFD749A00572776 /* ChatApp.entitlements */,
 				F2E35F7B1D1BDE04005A5041 /* ChatApp */,
 			);
 			path = ChatApp;
@@ -1136,9 +1167,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		F2E35F651D1BDC6E005A5041 /* ChatApp */ = {
+		F2E35F651D1BDC6E005A5041 /* AGiChatApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F2E35F781D1BDC6F005A5041 /* Build configuration list for PBXNativeTarget "ChatApp" */;
+			buildConfigurationList = F2E35F781D1BDC6F005A5041 /* Build configuration list for PBXNativeTarget "AGiChatApp" */;
 			buildPhases = (
 				CD4A3681528BEEF66118B819 /* [CP] Check Pods Manifest.lock */,
 				F2E35F621D1BDC6E005A5041 /* Sources */,
@@ -1148,14 +1179,15 @@
 				16DDEA3A884B2BD8A401B042 /* [CP] Embed Pods Frameworks */,
 				45E9456F3A93C5B98B25D85F /* [CP] Copy Pods Resources */,
 				7C714E751EF84AD70023499B /* Headers */,
+				7C2BB8691EFD735400572776 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ChatApp;
+			name = AGiChatApp;
 			productName = ChatApp;
-			productReference = F2E35F661D1BDC6E005A5041 /* ChatApp.app */;
+			productReference = F2E35F661D1BDC6E005A5041 /* AGiChatApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1164,13 +1196,13 @@
 		F2E35F5E1D1BDC6E005A5041 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Agile;
 				TargetAttributes = {
 					F2E35F651D1BDC6E005A5041 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 7W9M95F6T8;
+						DevelopmentTeam = KZQRYRBPR9;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -1179,6 +1211,9 @@
 							};
 							com.apple.Keychain = {
 								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 						};
 					};
@@ -1197,7 +1232,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F2E35F651D1BDC6E005A5041 /* ChatApp */,
+				F2E35F651D1BDC6E005A5041 /* AGiChatApp */,
 			);
 		};
 /* End PBXProject section */
@@ -1540,13 +1575,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 321A2E0B80BEA268CFF7EDDD /* Pods-ChatApp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ChatApp/ChatApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ronak Shah (7X9526XYFS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = 7W9M95F6T8;
+				DEVELOPMENT_TEAM = KZQRYRBPR9;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1561,7 +1598,7 @@
 				INFOPLIST_FILE = ChatApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.agi.AGiChatapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bernie.agi.AGiChatapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1575,13 +1612,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0E90D570C9BA3B238032E4C1 /* Pods-ChatApp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ChatApp/ChatApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Ronak Shah (7X9526XYFS)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
-				DEVELOPMENT_TEAM = 7W9M95F6T8;
+				DEVELOPMENT_TEAM = KZQRYRBPR9;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1591,7 +1630,7 @@
 				INFOPLIST_FILE = ChatApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.agi.AGiChatapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bernie.agi.AGiChatapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1612,7 +1651,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F2E35F781D1BDC6F005A5041 /* Build configuration list for PBXNativeTarget "ChatApp" */ = {
+		F2E35F781D1BDC6F005A5041 /* Build configuration list for PBXNativeTarget "AGiChatApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F2E35F791D1BDC6F005A5041 /* Debug */,

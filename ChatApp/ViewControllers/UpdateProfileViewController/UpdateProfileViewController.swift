@@ -12,6 +12,7 @@ import Photos
 import Firebase
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseMessaging
 import SDWebImage
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
@@ -56,6 +57,7 @@ class UpdateProfileViewController: BaseViewController,UIPickerViewDelegate ,UITa
     var day : String = String()
     var month : String = String()
     var year : String = String()
+    var fcmToken :String = String()
     var isError : Bool = Bool()
     var isErrorFname : Bool = Bool()
     var isErrorLname : Bool = Bool()
@@ -430,8 +432,12 @@ class UpdateProfileViewController: BaseViewController,UIPickerViewDelegate ,UITa
                     if let check = Foundation.UserDefaults.standard.object(forKey: "device_key"){
                         refreshedToken = check as! String //Stores device token
                   }
+                    
                 
-                    let user: NSDictionary = ["firstName":self.fName,"lastName":self.lName,"email":self.email,"gender":self.gender,"date":self.day,"month":self.month,"year":self.year,"profilePic":self.imageURL,"status":self.status, "phoneNo" : self.mobile, "deviceToken": refreshedToken]
+                    
+                  
+                
+                    let user: NSDictionary = ["firstName":self.fName,"lastName":self.lName,"email":self.email,"gender":self.gender,"date":self.day,"month":self.month,"year":self.year,"profilePic":self.imageURL,"status":self.status, "phoneNo" : self.mobile, "deviceToken": refreshedToken ]
                     
                     
                  rootRef.child("users").child(self.regId).updateChildValues(user as! [AnyHashable: Any])
@@ -466,7 +472,7 @@ class UpdateProfileViewController: BaseViewController,UIPickerViewDelegate ,UITa
         MeasurementHelper.sendLoginEvent()
         
         AppState.sharedInstance.displayName = self.fName //user?.displayName ?? user?.email
-        AppState.sharedInstance.photoUrl = user?.photoURL as! NSURL as URL
+        AppState.sharedInstance.photoUrl = user?.photoURL as! URL
         AppState.sharedInstance.signedIn = true
         NotificationCenter.default.post(name: Notification.Name(rawValue: Constants.NotificationKeys.SignedIn), object: nil, userInfo: nil)
         //Storing current registered user's Login Details
@@ -627,9 +633,9 @@ class UpdateProfileViewController: BaseViewController,UIPickerViewDelegate ,UITa
         
         let date1 = dateFormatter.string(from: datePicker.date)
         let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: dateFormatter.date(from: date1)!)
-        let day1 = components.day
-        let month1 = components.month
-        let year1 = components.year
+        let day1 = components.day!
+        let month1 = components.month!
+        let year1 = components.year!
         
         day = String(describing: day1)
         month = String(describing: month1)
@@ -900,7 +906,9 @@ class UpdateProfileViewController: BaseViewController,UIPickerViewDelegate ,UITa
                 imageURL = "null"
             }
             
-            let user: NSDictionary = ["firstName":self.fName,"lastName":self.lName,"email":self.email,"profilePic":imageURL,"gender":self.gender,"date":day,"month":month,"year":year,"status":status,"phoneNo" : self.mobile]
+            let FCMtoken = FIRInstanceID.instanceID().token()!
+            
+            let user: NSDictionary = ["firstName":self.fName,"lastName":self.lName,"email":self.email,"profilePic":imageURL,"gender":self.gender,"date":day,"month":month,"year":year,"status":status,"phoneNo" : self.mobile, "fcmToken" :FCMtoken]
             
             userRef.updateChildValues(user as! [AnyHashable: Any])
             Constants.loginFields.name = self.fName
@@ -913,6 +921,7 @@ class UpdateProfileViewController: BaseViewController,UIPickerViewDelegate ,UITa
             Constants.loginFields.year = self.year
             Constants.loginFields.status = self.status
             Constants.loginFields.phoneNo = self.mobile
+            Constants.loginFields.fcmToken = FCMtoken
             
             let trimmedString = status.trimmingCharacters(
                 in: CharacterSet.whitespacesAndNewlines)

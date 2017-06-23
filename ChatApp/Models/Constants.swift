@@ -56,6 +56,7 @@ struct Constants {
         static var gender = "gender"
         static var status = "status"
         static var deviceToken = "deviceToken"
+        static var fcmToken = "fcmToken"
     }
     
     struct recentMessageField { //Maintains recent message field data

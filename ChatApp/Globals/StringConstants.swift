@@ -31,7 +31,7 @@ let appName = "ChatApp"
 let messageInviteUrl = "Experience chat app, simple and good social/communication app. http://tinyurl.com/hlsos9o"
 let appIdforAd = "ca-app-pub-7897516872608980~7341574958"
 let unitIdForAd = "ca-app-pub-7897516872608980/1295041350"
-let FIREBASE_STORAGE_URL = "gs://agichatapp-a02de.appspot.com"
+let FIREBASE_STORAGE_URL = "gs://agichatapp2.appspot.com"
 
 
 /* AD CREDENTIAL

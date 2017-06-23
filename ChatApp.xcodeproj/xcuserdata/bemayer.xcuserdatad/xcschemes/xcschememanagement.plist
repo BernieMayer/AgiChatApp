@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AGiNotifications.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
+		</dict>
 		<key>ChatApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>7C2BB85D1EFD735400572776</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>F2E35F651D1BDC6E005A5041</key>
 		<dict>
 			<key>primary</key>

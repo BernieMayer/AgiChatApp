@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F2E35F651D1BDC6E005A5041"
-               BuildableName = "ChatApp.app"
-               BlueprintName = "ChatApp"
+               BuildableName = "AGiChatApp.app"
+               BlueprintName = "AGiChatApp"
                ReferencedContainer = "container:ChatApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F2E35F651D1BDC6E005A5041"
-            BuildableName = "ChatApp.app"
-            BlueprintName = "ChatApp"
+            BuildableName = "AGiChatApp.app"
+            BlueprintName = "AGiChatApp"
             ReferencedContainer = "container:ChatApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F2E35F651D1BDC6E005A5041"
-            BuildableName = "ChatApp.app"
-            BlueprintName = "ChatApp"
+            BuildableName = "AGiChatApp.app"
+            BlueprintName = "AGiChatApp"
             ReferencedContainer = "container:ChatApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -81,8 +81,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F2E35F651D1BDC6E005A5041"
-            BuildableName = "ChatApp.app"
-            BlueprintName = "ChatApp"
+            BuildableName = "AGiChatApp.app"
+            BlueprintName = "AGiChatApp"
             ReferencedContainer = "container:ChatApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

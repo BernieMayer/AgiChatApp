@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>951668193629-olebniu8kvhugvuaiocco18d9hk255gj.apps.googleusercontent.com</string>
+	<string>382538071116-pgrvc42uc7kcn04ijagueplnnn5ukn7t.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.951668193629-olebniu8kvhugvuaiocco18d9hk255gj</string>
+	<string>com.googleusercontent.apps.382538071116-pgrvc42uc7kcn04ijagueplnnn5ukn7t</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAYQeVCYz6D5DMlmQKHRs-RTEiLsvrRzyM</string>
+	<string>AIzaSyAR5MX9gRq8BkfQHP4uNGc9U0GimR1B2PM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>951668193629</string>
+	<string>382538071116</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.agi.chatapp</string>
+	<string>com.bernie.agi.AGiChatapp</string>
 	<key>PROJECT_ID</key>
-	<string>agichatapp-a02de</string>
+	<string>agichatapp2</string>
 	<key>STORAGE_BUCKET</key>
-	<string>agichatapp-a02de.appspot.com</string>
+	<string>agichatapp2.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:951668193629:ios:75c2b6cbf3b9b025</string>
+	<string>1:382538071116:ios:5611e45ebd210cec</string>
 	<key>DATABASE_URL</key>
-	<string>https://agichatapp-a02de.firebaseio.com</string>
+	<string>https://agichatapp2.firebaseio.com</string>
 </dict>
 </plist>

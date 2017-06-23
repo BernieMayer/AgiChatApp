@@ -55,6 +55,7 @@ class ChatGridCustomCell: UICollectionViewCell {
        // ref = FIRDatabase.database().reference()
         
         
+        
         self.ref.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             let dicttempUser = snapshot.valueInExportFormat() as! NSMutableDictionary
             

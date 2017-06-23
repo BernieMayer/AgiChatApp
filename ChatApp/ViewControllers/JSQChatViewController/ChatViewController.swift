@@ -537,7 +537,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         else
         {
-            sendNotifactionToUser(user: userId, message: "New Message!!")
+         
+        
+            sendNotifactionToUser(user: userId, message: "New Message!!") //sends the notification
             let data = [Constants.MessageFields.text: text as String]
             self.sendMessage(data,text: text)
             self.finishSendingMessage(animated: false)
@@ -662,7 +664,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         else
         {
-            sendNotifactionToUser  (user: "test", message: "New Message!!")
+            
             ref.child("chat").child(newTopicChatID).childByAutoId().setValue(mdata)
             let dict : NSMutableDictionary = NSMutableDictionary()
             dict.setObject(userName, forKey: "title" as NSCopying)

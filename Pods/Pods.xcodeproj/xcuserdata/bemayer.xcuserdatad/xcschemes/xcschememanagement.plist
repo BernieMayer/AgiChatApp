@@ -8,81 +8,56 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>GoogleToolboxForMac.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>NVActivityIndicatorView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
-		<key>Pods-ChatApp.xcscheme</key>
+		<key>Pods-AGiChatApp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>Protobuf.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 		<key>ReachabilitySwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
 		</dict>
 		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
 		<key>SVPullToRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>9</integer>
 		</dict>
 		<key>SwiftLoader.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>10</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>258899EF4E616E6C817DCA92868B6F5D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>270B6CA6D793EF6059A4EFFDA831E399</key>
+		<key>3296812CD9A0ED15E56456647EF21CF4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4BAB852E14E0C84E05506221A2E27C60</key>
+		<key>6D5CEDECD3D8DC52EA507E0431BDA8A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6D5CEDECD3D8DC52EA507E0431BDA8A0</key>
+		<key>84FD31169A87FEC07D4B0D892EFFA0D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,22 +82,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A79DA0EA659C12B834CBA6FB42E8C9C</key>
+		<key>8DBD4D9F109DE5C4CE117848A9F5277C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A9355512F3D8FDBEBFF14C18123D3F62</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AE2CC68DC2129E3FFC5667B0B3F7C3F0</key>
+		<key>BB4284A416C6E535A26AADCAAE2D5535</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>C052BEBFBD0AB5218CC64BA3450F6547</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DF15A2A4FE8550E4473D75E0CD0BB589</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F2B3377ABCF52662043B344F086E7BEA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -293,9 +293,9 @@ extension NSDictionary{
                 dictReplaced.setObject(blank, forKey: strKey)
                 //                dictReplaced.removeObjectForKey(strKey)
             }else if object.isKind(of: NSDictionary.self) {
-                dictReplaced.setObject(object.dictionaryByReplacingNullsWithBlanks(), forKey: strKey)
+                dictReplaced.setObject((object as! NSDictionary).dictionaryByReplacingNullsWithBlanks(), forKey: strKey)
             }else if object.isKind(of: NSArray.self) {
-                dictReplaced.setObject(object.arrayByReplacingNullsWithBlanks(), forKey: strKey)
+                dictReplaced.setObject((object as! NSArray).arrayByReplacingNullsWithBlanks(), forKey: strKey)
             }
         }
         return dictReplaced
@@ -325,9 +325,9 @@ extension NSArray{
                 arrReplaced.setValue(blank, forKey: object.key!!)
                 //                arrReplaced.removeObjectAtIndex(idx)
             }else if object.isKind(of: NSDictionary.self) {
-                arrReplaced.replaceObject(at: idx, with: object.dictionaryByReplacingNullsWithBlanks())
+                arrReplaced.replaceObject(at: idx, with: (object as! NSDictionary).dictionaryByReplacingNullsWithBlanks())
             }else if object.isKind(of: NSArray.self) {
-                arrReplaced.replaceObject(at: idx, with: object.arrayByReplacingNullsWithBlanks())
+                arrReplaced.replaceObject(at: idx, with: (object as! NSArray).arrayByReplacingNullsWithBlanks())
             }
         }
         
@@ -340,7 +340,7 @@ extension NSArray{
         for idx in 0..<arrReplaced.count {
             let object : AnyObject = arrReplaced.object(at: idx) as AnyObject
             if object.isKind(of: NSDictionary.self) {
-                arrReplaced.replaceObject(at: idx, with: object.dictionaryByAppendingKey(value))
+                arrReplaced.replaceObject(at: idx, with: (object as! NSDictionary).dictionaryByAppendingKey(value))
             }
         }
         return arrReplaced

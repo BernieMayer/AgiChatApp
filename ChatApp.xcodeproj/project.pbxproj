@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		435927D1B116574836DA445D /* Pods_AGiChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76E5EA7906244BFB693C4234 /* Pods_AGiChatApp.framework */; };
 		7C291CA81EF9C5210049CE21 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C291CA71EF9C5210049CE21 /* GoogleService-Info.plist */; };
 		7C2BB8591EFCA90700572776 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C2BB8581EFCA90700572776 /* UserNotifications.framework */; };
 		7C714E771EF84B1A0023499B /* GoogleMobileAds.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C714E761EF84B1A0023499B /* GoogleMobileAds.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -102,7 +103,6 @@
 		84FADB361DDD94D900742C40 /* LocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FADB351DDD94D900742C40 /* LocationCell.xib */; };
 		84FE35B71DDEF1310084D33D /* GroupUsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE35B51DDEF1310084D33D /* GroupUsersTableViewCell.swift */; };
 		84FE35B81DDEF1310084D33D /* GroupUsersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FE35B61DDEF1310084D33D /* GroupUsersTableViewCell.xib */; };
-		E933F0165F52E1DF54F86E83 /* Pods_ChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB46E71316A510018257D43 /* Pods_ChatApp.framework */; };
 		F2486BD01D20FB6E0038F5D0 /* img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F2486BCF1D20FB6E0038F5D0 /* img.jpg */; };
 		F2486BEB1D2144100038F5D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2486BEA1D2144100038F5D0 /* MapKit.framework */; };
 		F26E86DA1DD1C90A000C2F36 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26E86D91DD1C90A000C2F36 /* Message.swift */; };
@@ -175,6 +175,9 @@
 /* Begin PBXFileReference section */
 		0E90D570C9BA3B238032E4C1 /* Pods-ChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.release.xcconfig"; sourceTree = "<group>"; };
 		321A2E0B80BEA268CFF7EDDD /* Pods-ChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp.debug.xcconfig"; sourceTree = "<group>"; };
+		35FE8AF6B8D49EC50C4D5EDA /* Pods-AGiChatApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGiChatApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AGiChatApp/Pods-AGiChatApp.debug.xcconfig"; sourceTree = "<group>"; };
+		5B149DCE1B926FF07223A3CA /* Pods-AGiChatApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AGiChatApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-AGiChatApp/Pods-AGiChatApp.release.xcconfig"; sourceTree = "<group>"; };
+		76E5EA7906244BFB693C4234 /* Pods_AGiChatApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AGiChatApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C291CA71EF9C5210049CE21 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7C2BB8581EFCA90700572776 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		7C2BB8601EFD735400572776 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -403,7 +406,7 @@
 				84CEF5CE1D913AAA00C88B55 /* TwitterCore.framework in Frameworks */,
 				F2486BEB1D2144100038F5D0 /* MapKit.framework in Frameworks */,
 				84CEF5CB1D913AAA00C88B55 /* Fabric.framework in Frameworks */,
-				E933F0165F52E1DF54F86E83 /* Pods_ChatApp.framework in Frameworks */,
+				435927D1B116574836DA445D /* Pods_AGiChatApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +422,7 @@
 				84C609621D9CD9EE00BC60C5 /* ContactsUI.framework */,
 				84C609601D9CD9E400BC60C5 /* Contacts.framework */,
 				AAB46E71316A510018257D43 /* Pods_ChatApp.framework */,
+				76E5EA7906244BFB693C4234 /* Pods_AGiChatApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -927,6 +931,8 @@
 			children = (
 				321A2E0B80BEA268CFF7EDDD /* Pods-ChatApp.debug.xcconfig */,
 				0E90D570C9BA3B238032E4C1 /* Pods-ChatApp.release.xcconfig */,
+				35FE8AF6B8D49EC50C4D5EDA /* Pods-AGiChatApp.debug.xcconfig */,
+				5B149DCE1B926FF07223A3CA /* Pods-AGiChatApp.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1204,7 +1210,7 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = KZQRYRBPR9;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1285,13 +1291,32 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AGiChatApp/Pods-AGiChatApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/ReachabilitySwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SVPullToRefresh/SVPullToRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftLoader/SwiftLoader.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVPullToRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLoader.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AGiChatApp/Pods-AGiChatApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		45E9456F3A93C5B98B25D85F /* [CP] Copy Pods Resources */ = {
@@ -1306,7 +1331,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ChatApp/Pods-ChatApp-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AGiChatApp/Pods-AGiChatApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		84CEF5C61D913A8500C88B55 /* ShellScript */ = {
@@ -1328,13 +1353,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AGiChatApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1498,7 +1526,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: AGILE Infoways Pvt. Ltd. (WQ67JUDLHU)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1550,7 +1578,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: AGILE Infoways Pvt. Ltd. (WQ67JUDLHU)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1573,7 +1601,7 @@
 		};
 		F2E35F791D1BDC6F005A5041 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 321A2E0B80BEA268CFF7EDDD /* Pods-ChatApp.debug.xcconfig */;
+			baseConfigurationReference = 35FE8AF6B8D49EC50C4D5EDA /* Pods-AGiChatApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1584,7 +1612,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = KZQRYRBPR9;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1598,10 +1626,97 @@
 				INFOPLIST_FILE = ChatApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-v",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreVideo\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseDatabase\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseMessaging\"",
+					"-framework",
+					"\"FirebaseRemoteConfig\"",
+					"-framework",
+					"\"FirebaseStorage\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleMobileAds\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"NVActivityIndicatorView\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"Protobuf\"",
+					"-framework",
+					"\"ReachabilitySwift\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SVPullToRefresh\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SwiftLoader\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-weak_framework",
+					"\"AdSupport\"",
+					"-weak_framework",
+					"\"JavaScriptCore\"",
+					"-weak_framework",
+					"\"SafariServices\"",
+					"-weak_framework",
+					"\"WebKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bernie.agi.AGiChatapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "cbc565b7-b11f-4011-a7cb-85041fac2989";
+				PROVISIONING_PROFILE_SPECIFIER = AgiChatAppTestingProf2;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatApp/ChatApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1610,7 +1725,7 @@
 		};
 		F2E35F7A1D1BDC6F005A5041 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E90D570C9BA3B238032E4C1 /* Pods-ChatApp.release.xcconfig */;
+			baseConfigurationReference = 5B149DCE1B926FF07223A3CA /* Pods-AGiChatApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1621,7 +1736,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = KZQRYRBPR9;
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1630,10 +1745,97 @@
 				INFOPLIST_FILE = ChatApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-v",
+					"-l\"c++\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreMotion\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreVideo\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseDatabase\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseMessaging\"",
+					"-framework",
+					"\"FirebaseRemoteConfig\"",
+					"-framework",
+					"\"FirebaseStorage\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleMobileAds\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"NVActivityIndicatorView\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"Protobuf\"",
+					"-framework",
+					"\"ReachabilitySwift\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SVPullToRefresh\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SwiftLoader\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-weak_framework",
+					"\"AdSupport\"",
+					"-weak_framework",
+					"\"JavaScriptCore\"",
+					"-weak_framework",
+					"\"SafariServices\"",
+					"-weak_framework",
+					"\"WebKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bernie.agi.AGiChatapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "cbc565b7-b11f-4011-a7cb-85041fac2989";
+				PROVISIONING_PROFILE_SPECIFIER = AgiChatAppTestingProf2;
 				SWIFT_OBJC_BRIDGING_HEADER = "ChatApp/ChatApp-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

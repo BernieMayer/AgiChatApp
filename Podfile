@@ -10,7 +10,7 @@ post_install do |installer|
     end
 end
 
-target 'ChatApp' do
+target 'AGiChatApp' do
   # Comment this line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
@@ -25,7 +25,7 @@ target 'ChatApp' do
   pod 'Firebase/Messaging'
   pod 'SwiftLoader'
   pod 'SDWebImage', ' >= 3.8'
-  pod 'Alamofire', '~> 4.0.1’
+  pod 'Alamofire'
   pod 'ReachabilitySwift', '~> 3.0' 
   pod 'NVActivityIndicatorView','~> 3.0'
   pod 'SVPullToRefresh'
